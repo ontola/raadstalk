@@ -1,0 +1,10 @@
+{
+  "lintOptions": {
+    "typeCheck": true
+  },
+  "extends": "tslint:recommended",
+  "rules": {
+    "interface-name": [true, "never-prefix"],
+    "quotemark": [true, "avoid-escape", "jsx-double"]
+  }
+}
