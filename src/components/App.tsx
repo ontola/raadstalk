@@ -13,7 +13,7 @@ const App: React.FunctionComponent = () => (
     <div id="main-content" className="boundingBox">
       <Route exact path="/" component={Home} />
       <Route path="/list/:query" component={List} />
-      <Route path="/map" component={Map} />
+      <Route path="/map/:query" component={Map} />
       <Route path="/about" component={About} />
       <footer><Link to="/about">Over deze app</Link> | Gemaakt met Open Raadsinformatie</footer>
     </div>

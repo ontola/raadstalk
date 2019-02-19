@@ -64,6 +64,10 @@ class SearchBar extends Component<SearchBarProps, SearchBarState> {
     const text = this.state.text;
 
     if (text.length > 0) {
+      console.log(this.props.match.url);
+      if (this.props.match.url === paths.map("")) {
+        this.props.history.push(paths.map(this.state.text));
+      }
       this.props.history.push(paths.list(this.state.text));
     }
   }
