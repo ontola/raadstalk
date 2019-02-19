@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import BackButton from "../components/BackButton";
 import SearchBar from "../components/SearchBar";
 import paths from "../paths";
+import ListSearch from "../components/ListSearch";
 
 const defaultProps = {
   match: {
@@ -35,9 +36,23 @@ class List extends Component<RouteComponentProps<any>> {
         </header>
         <SearchBar initialText={query}/>
         <p>Resultaten voor {query}</p>
+        <ListSearch items={listItems}/>
       </React.Fragment>
     );
   }
 }
+
+const listItems: [string, number][] = [
+  ["Amsterdam", 23],
+  ["Utrecht", 20],
+  ["Almere", 18],
+  ["Den Haag", 10],
+  ["Baarn", 9],
+  ["Soest", 9],
+  ["Alblasserdam", 8],
+  ["Groningen", 7],
+  ["Haarlem", 6],
+  ["Heerlen", 5],
+];
 
 export default withRouter(List);
