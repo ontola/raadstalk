@@ -1,37 +1,25 @@
-import { CategorySearch, ReactiveBase, ResultCard } from "@appbaseio/reactivesearch";
 import React, { Component } from "react";
+import { withRouter, RouteComponentProps } from "react-router";
+import { Link } from "react-router-dom";
 
-export default class List extends Component {
+const defaultProps = {
+  match: {
+    params: {
+      query: 'test'
+    }
+  }
+};
+
+/** Show the list of municipalities + hit counts for a single query */
+class List extends Component<RouteComponentProps<any>> {
   public render() {
     return (
-      <ReactiveBase
-        app="ori_cappelleadijssel_20190122164336"
-        url="http://localhost:8080/search"
-      >
-        <CategorySearch
-          componentId="searchbox"
-          dataField="model"
-          categoryField="brand.keyword"
-          placeholder="Search for cars"
-        />
-        <ResultCard
-          componentId="result"
-          // title="Results"
-          dataField="model"
-          // from={0}
-          target="fdsa"
-          size={5}
-          pagination={true}
-          react={{
-            and: ["searchbox", "ratingsfilter"],
-          }}
-          // onData={(res) => ({
-          //   description: res.brand + " " + "★".repeat(res.rating),
-          //   image: "https://bit.do/demoimg",
-          //   title: res.model,
-          // })}
-        />
-      </ReactiveBase>
+      <React.Fragment>
+        <Link to="/">Home</Link>
+        <p>Resultaten voor {this.props.match.params.query}</p>
+      </React.Fragment>
     );
   }
 }
+
+export default withRouter(List);
