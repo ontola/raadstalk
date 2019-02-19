@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import paths from "../paths";
 import { Link } from "react-router-dom";
 
+import "../styles/ListItem.scss";
+
 export interface PropTypes {
   /** Text label*/
   term: string;

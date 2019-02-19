@@ -1,0 +1,27 @@
+@import 'shared';
+
+.ListSearch ul {
+  list-style-type: none;
+  padding: 0;
+  height: 273px;
+  overflow-y: auto;
+}
+
+.ListItem {
+  color: $black;
+  display: block;
+  text-decoration: none;
+  position: relative;
+  margin-bottom: 4px;
+}
+
+.ListItem-bar {
+  background-color: $blue-light;
+  height: 4px;
+}
+
+.ListItem-hits {
+  color: $g1;
+  position: absolute;
+  right: 0;
+}
