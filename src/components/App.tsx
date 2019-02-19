@@ -11,6 +11,8 @@ import "../styles/App.scss";
 const App: React.FunctionComponent = () => (
   <BrowserRouter>
     <div id="main-content" className="boundingBox">
+      {/* Load the styling for the Leaflet map */}
+      <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.1/dist/leaflet.css" />
       <Route exact path="/" component={Home} />
       <Route path="/list/:query" component={List} />
       <Route path="/map/:query" component={Map} />

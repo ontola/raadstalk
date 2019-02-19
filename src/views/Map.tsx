@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import BackButton from "../components/BackButton";
 import SearchBar from "../components/SearchBar";
 import paths from "../paths";
+import MapComponent from '../components/MapComponent';
 
 const defaultProps = {
   match: {
@@ -34,7 +35,8 @@ class List extends Component<RouteComponentProps<any>> {
           </Link>
         </header>
       <SearchBar initialText={query}/>
-        <p>Resultaten voor {query}</p>
+      <p>Resultaten voor {query}</p>
+      <MapComponent/>
       </React.Fragment>
     );
   }
