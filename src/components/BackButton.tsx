@@ -4,7 +4,7 @@ import paths from "../paths";
 import { Link } from "react-router-dom";
 import React from "react";
 
-import '../styles/Button.scss';
+import "../styles/Button.scss";
 
 const BackButton = () =>
   <Link

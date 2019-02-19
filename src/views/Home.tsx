@@ -1,13 +1,13 @@
-import React from "react";
+import React, { Component } from "react";
 
 import ListSearch from "../components/ListSearch";
-import vngLogo from "../images/VNGRealisatieLogo.svg";
+import VNGRealisatieLogoSvg from "../images/VNGRealisatieLogo.svg";
 
 const Home: React.FunctionComponent = () => (
   <div>
     <header>
       <img
-        src={vngLogo}
+        src={VNGRealisatieLogoSvg}
         alt="VNG"
         style={{
           width: "50px",
