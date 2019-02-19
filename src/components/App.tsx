@@ -27,7 +27,7 @@ const App: React.FunctionComponent = () => (
       </ul>
       <div id="main-content" className="boundingBox">
         <Route exact path="/" component={Home} />
-        <Route path="/list" component={List} />
+        <Route path="/list/:query" component={List} />
         <Route path="/map" component={Map} />
         <Route path="/about" component={About} />
         <footer><Link to="/about">Over deze app</Link> | Gemaakt met Open Raadsinformatie</footer>
