@@ -1,0 +1,11 @@
+@import './shared.scss';
+
+.Button {
+  color: $blue;
+  text-decoration: none;
+  font-weight: bold;
+
+  span {
+    padding: 5px;
+  }
+}
