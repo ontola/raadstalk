@@ -18,7 +18,9 @@ class List extends Component<RouteComponentProps<any>> {
     const query = this.props.match.params.query;
     return (
       <React.Fragment>
-        <BackButton/>
+        <header>
+          <BackButton/>
+        </header>
         <SearchBar initialText={query}/>
         <p>Resultaten voor {query}</p>
       </React.Fragment>

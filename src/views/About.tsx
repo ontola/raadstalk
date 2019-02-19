@@ -7,8 +7,10 @@ export default class About extends Component {
   render() {
     return (
       <div id="about">
-        <BackButton/>
-        <h1>Over RaadsTalk</h1>
+        <header>
+          <BackButton/>
+        </header>
+        <h2>Over RaadsTalk</h2>
         <p>De Webapp Trends Open Raadsinformatie applicatie is een hulpmiddel ontwikkeld door <a href="https://www.vngrealisatie.nl/">VNG Realisatie</a>.</p>
         <p>De data die je ziet zijn afkomstig uit <a href={paths.openRaadsInformatie}>Open Raadsinformatie</a>. Onderhand delen al meer dan 100 gemeenten hun raadsinformatie (vergaderingen, agendapunten, documenten) via dit systeem.</p>
         <p>Staat jouw gemeente hier nog niet tussen? Neem dan met ons <a href={paths.contactMail}>contact</a> op.</p>
