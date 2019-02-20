@@ -46,7 +46,7 @@ const List: React.SFC<RouteComponentProps<any>> = (props) => {
       </header>
       <SearchBar initialText={query}/>
       {loading && <Spinner/>}
-      {!loading && <ListSearch items={items}/>}
+      {!loading && <ListSearch isMunicipality items={items} searchTerm={query}/>}
     </React.Fragment>
   );
 };

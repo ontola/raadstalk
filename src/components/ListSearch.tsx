@@ -5,6 +5,8 @@ import { ListItemType } from "../types";
 
 interface ListSearchProps {
   items: ListItemType[];
+  isMunicipality: boolean;
+  searchTerm?: string;
 }
 
 export default class ListSearch extends Component<ListSearchProps> {
@@ -27,6 +29,8 @@ export default class ListSearch extends Component<ListSearchProps> {
             label={label}
             hitCount={hitCount}
             widthPercent={percentage}
+            isMunicipality={this.props.isMunicipality}
+            searchTerm={this.props.searchTerm}
           />
         );
       });
@@ -35,6 +39,10 @@ export default class ListSearch extends Component<ListSearchProps> {
     }
     return null;
   }
+
+  static defaultProps = {
+    isMunicipality: false,
+  };
 
   public render() {
     if (this.props.items.length === 0) {
