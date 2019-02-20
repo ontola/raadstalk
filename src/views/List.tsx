@@ -35,7 +35,7 @@ class List extends Component<RouteComponentProps<any>> {
           </Link>
         </header>
         <SearchBar initialText={query}/>
-        <p>Resultaten voor {query}</p>
+        <p>Aantal keer besproken in gemeenten:</p>
         <ListSearch items={listItems}/>
       </React.Fragment>
     );

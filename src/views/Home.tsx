@@ -17,6 +17,7 @@ const Home: React.FunctionComponent = () => (
       <span>RaadsTalk</span>
     </header>
     <SearchBar/>
+    <p>Meest voorkomende termen:</p>
     <ListSearch items={listItems} />
   </div>
 );
