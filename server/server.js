@@ -21,10 +21,11 @@ app.options(cors(corsOptions));
 
 app.use(express.static(path.join(__dirname, 'build')));
 
-app.use('/search', proxy({
-  target: 'https://api.openraadsinformatie.nl/v1/elastic',
+app.all('/search', proxy({
+  target: 'https://api.openraadsinformatie.nl/v1/elastic/ori_*/_search',
   changeOrigin: true,
-  logLevel: 'debug',
+  pathRewrite: { '^/search': '' },
+  logLevel: process.env.NODE_ENV === 'production' ? 'info' :  'debug',
 }));
 
 app.get('/', (req, res) => {

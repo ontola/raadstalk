@@ -17,15 +17,15 @@ export function getSearchResults(query: string): ListItemType[] | null {
     credentials: "same-origin",
     body: JSON.stringify(data),
   })
-  // .then((response) => {
-  //   response.json().then((json) => {
-  //     const body = json;
-  //     console.log(body);
-  //     return(body);
-  //   }).catch(reason => new Error(reason));
-  // }).catch((reason) => {
-  //   return(mockMunicipalitiesHits);
-  // });
+  .then((response) => {
+    response.json().then((json) => {
+      const body = json;
+      console.log(body);
+      return(body);
+    }).catch(reason => new Error(reason));
+  }).catch((reason) => {
+    return(mockMunicipalitiesHits);
+  });
   return(mockMunicipalitiesHits);
 }
 
