@@ -6,9 +6,9 @@ import "../styles/ListItem.scss";
 
 export interface PropTypes {
   /** Text label*/
-  term: string;
+  label: string;
   /** Amount of hits*/
-  termHit: number;
+  hitCount: number;
   /** How wide the bar is*/
   widthPercent: number;
 }
@@ -16,9 +16,9 @@ export interface PropTypes {
 export default class ListItem extends Component<PropTypes> {
   public render() {
     return (
-      <Link to={paths.list(this.props.term)} className="ListItem">
-        <span>{this.props.term}</span>
-        <span className="ListItem-hits">{this.props.termHit}</span>
+      <Link to={paths.list(this.props.label)} className="ListItem">
+        <span>{this.props.label}</span>
+        <span className="ListItem-hits">{this.props.hitCount}</span>
         <div className="ListItem-bar" style={{ width: `${this.props.widthPercent}%` }}>&nbsp;</div>
       </Link>
     );

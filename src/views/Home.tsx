@@ -3,36 +3,28 @@ import React from "react";
 import ListSearch from "../components/ListSearch";
 import VNGRealisatieLogoSvg from "../images/VNGRealisatieLogo.svg";
 import SearchBar from "../components/SearchBar";
+import { ListItemType } from "../types";
+import { getPopularItems } from "../API";
 
-const Home: React.FunctionComponent = () => (
-  <div>
-    <header>
-      <img
-        src={VNGRealisatieLogoSvg}
-        alt="VNG"
-        style={{
-          width: "50px",
-        }}
-      />
-      <span>RaadsTalk</span>
-    </header>
-    <SearchBar/>
-    <p>Meest voorkomende termen:</p>
-    <ListSearch items={listItems} />
-  </div>
-);
-
-const listItems: [string, number][] = [
-  ["Energietransitie", 420],
-  ["Omgevingswet", 415],
-  ["Klimaat", 395],
-  ["Privacy", 370],
-  ["Schuldhulpverlening", 355],
-  ["Digitalisering", 342],
-  ["Energiebesparing", 331],
-  ["Algemene vordering persoonsgegevens", 320],
-  ["Informatieveiligheid", 314],
-  ["Transformatie sociaal domein", 308],
-];
+const Home: React.FunctionComponent = () => {
+  const listItems = getPopularItems();
+  return (
+    <div>
+      <header>
+        <img
+          src={VNGRealisatieLogoSvg}
+          alt="VNG"
+          style={{
+            width: "50px",
+          }}
+        />
+        <span>RaadsTalk</span>
+      </header>
+      <SearchBar/>
+      <p>Meest voorkomende termen:</p>
+      <ListSearch items={listItems} />
+    </div>
+  );
+};
 
 export default Home;
