@@ -38,9 +38,9 @@ function bucketsToListItems(items: ElasticBucket[]): ListItemType[] {
   return items.map((item) => {
     const parts = item.key.split("_");
     const label = parts
-    .slice(1, parts.length - 1)
-    .map(s => `${s.charAt(0).toLocaleUpperCase()}${s.substring(1)}`)
-    .join(" ");
+      .slice(1, parts.length - 1)
+      .map(s => `${s.charAt(0).toLocaleUpperCase()}${s.substring(1)}`)
+      .join(" ");
 
     return {
       label,
@@ -48,40 +48,6 @@ function bucketsToListItems(items: ElasticBucket[]): ListItemType[] {
     };
   });
 }
-
-const mockMunicipalitiesHits: ListItemType[] = [
-  {
-    label: "Amsterdam",
-    hitCount: 23,
-  },  {
-    label: "Utrecht",
-    hitCount: 18,
-  },  {
-    label: "Almere",
-    hitCount: 10,
-  },  {
-    label: "Den Haag",
-    hitCount: 9,
-  },  {
-    label: "Baarn",
-    hitCount: 9,
-  },  {
-    label: "Soest",
-    hitCount: 8,
-  },  {
-    label: "Alblasserdam",
-    hitCount: 7,
-  },  {
-    label: "Groningen",
-    hitCount: 6,
-  },  {
-    label: "Haarlem",
-    hitCount: 5,
-  },  {
-    label: "Heerlen",
-    hitCount: 5,
-  },
-];
 
 export function getPopularItems(): ListItemType[] {
   return mockPupularItems;
