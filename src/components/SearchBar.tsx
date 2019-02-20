@@ -65,10 +65,11 @@ class SearchBar extends Component<SearchBarProps, SearchBarState> {
     const text = this.state.text;
 
     if (text.length > 0) {
-      if (this.props.match.url === paths.map("")) {
+      if (this.props.match.path === paths.map(":query")) {
         this.props.history.push(paths.map(text));
+      } else {
+        this.props.history.push(paths.list(text));
       }
-      this.props.history.push(paths.list(text));
     } else {
       this.props.history.push(paths.home);
     }
@@ -84,6 +85,7 @@ class SearchBar extends Component<SearchBarProps, SearchBarState> {
   render() {
     return (
       <form
+        className="SearchBar"
         style={wrapperStyle}
         onSubmit={this.handleOnSubmit}
       >
