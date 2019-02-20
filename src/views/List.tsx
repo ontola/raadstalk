@@ -9,17 +9,23 @@ import paths from "../paths";
 import ListSearch from "../components/ListSearch";
 import { getSearchResults } from "../API";
 import { ListItemType } from "../types";
+import Spinner from "../components/Spinner";
 
 /** Show the list of municipalities + hit counts for a single query */
 const List: React.SFC<RouteComponentProps<any>> = (props) => {
 
-  const [items, setItems] = useState<ListItemType[] | null>(null);
+  const [items, setItems] = useState<ListItemType[]>([]);
+  const [loading, setLoading] = useState<boolean>(false);
 
   const query = props.match.params.query;
 
   useEffect(
     () => {
-      getSearchResults(query).then(result => setItems(result));
+      setLoading(true);
+      getSearchResults(query).then((result) => {
+        setLoading(false);
+        return setItems(result);
+      });
     },
     [query],
   );
@@ -39,8 +45,8 @@ const List: React.SFC<RouteComponentProps<any>> = (props) => {
         </Link>
       </header>
       <SearchBar initialText={query}/>
-      <p>Aantal keer besproken in gemeenten:</p>
-      <ListSearch items={items}/>
+      {loading && <Spinner/>}
+      {!loading && <ListSearch items={items}/>}
     </React.Fragment>
   );
 };

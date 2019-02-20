@@ -4,7 +4,7 @@ import ListItem from "./ListItem";
 import { ListItemType } from "../types";
 
 interface ListSearchProps {
-  items: ListItemType[] | null;
+  items: ListItemType[];
 }
 
 export default class ListSearch extends Component<ListSearchProps> {
@@ -37,6 +37,9 @@ export default class ListSearch extends Component<ListSearchProps> {
   }
 
   public render() {
+    if (this.props.items.length === 0) {
+      return (<p>Er zijn geen resultaten gevonden.</p>);
+    }
     return (
       <div className="ListSearch">
         {this.renderListItems()}
