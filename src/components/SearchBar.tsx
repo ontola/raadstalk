@@ -1,7 +1,7 @@
 import React, { Component, ChangeEvent, FormEvent } from "react";
 import Radium from "radium";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSearch } from "@fortawesome/free-solid-svg-icons";
+import { faSearch, faTimes } from "@fortawesome/free-solid-svg-icons";
 
 import { sharedColors, sharedBorderRadius } from "../sharedStyles";
 
@@ -51,6 +51,7 @@ class SearchBar extends Component<SearchBarProps, SearchBarState> {
 
     this.handleChange = this.handleChange.bind(this);
     this.handleOnSubmit = this.handleOnSubmit.bind(this);
+    this.handleReset = this.handleReset.bind(this);
   }
 
   handleChange(event: ChangeEvent<HTMLInputElement>) {
@@ -59,17 +60,25 @@ class SearchBar extends Component<SearchBarProps, SearchBarState> {
     });
   }
 
-  handleOnSubmit(event: FormEvent<HTMLFormElement>) {
+  handleOnSubmit(event: any) {
     event.preventDefault();
     const text = this.state.text;
 
     if (text.length > 0) {
-      console.log(this.props.match.url);
       if (this.props.match.url === paths.map("")) {
-        this.props.history.push(paths.map(this.state.text));
+        this.props.history.push(paths.map(text));
       }
-      this.props.history.push(paths.list(this.state.text));
+      this.props.history.push(paths.list(text));
+    } else {
+      this.props.history.push(paths.home);
     }
+  }
+
+  handleReset(event: React.MouseEvent<HTMLButtonElement>) {
+    this.setState({
+      text: "",
+    });
+    this.props.history.push(paths.home);
   }
 
   render() {
@@ -79,13 +88,27 @@ class SearchBar extends Component<SearchBarProps, SearchBarState> {
         onSubmit={this.handleOnSubmit}
       >
         <input
-          placeholder="Zoeken..."
+          autoFocus
+          placeholder="Zoeken op term..."
           style={inputStyle}
           type="text"
           onChange={this.handleChange}
           value={this.state.text}
         />
-        <button className="SearchBar__search-icon" >
+        {this.state.text &&
+          <button
+            className="SearchBar__reset-icon"
+            onClick={this.handleReset}
+            type="button"
+          >
+            <FontAwesomeIcon icon={faTimes} />
+          </button>
+        }
+        <button
+          type="button"
+          className="SearchBar__search-icon"
+          onClick={this.handleOnSubmit}
+        >
           <FontAwesomeIcon icon={faSearch} />
         </button>
       </form>

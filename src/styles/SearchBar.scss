@@ -1,10 +1,21 @@
 @import 'shared';
 
-.SearchBar__search-icon {
+.SearchBar__search-icon,
+.SearchBar__reset-icon {
+  color: $g1;
   align-self: center;
   position: absolute;
   right: 10px;
   background: none;
   border: none;
   height: 26px;
+
+  &:hover {
+    color: $g4;
+    cursor: pointer;
+  }
+}
+
+.SearchBar__reset-icon {
+  right: 30px;
 }
