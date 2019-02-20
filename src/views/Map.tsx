@@ -28,14 +28,13 @@ class List extends Component<RouteComponentProps<any>> {
             to={paths.list(query)}
             className="Button Button--float-right"
           >
+            <FontAwesomeIcon icon={faListUl} />
             <span>
               Lijst
             </span>
-            <FontAwesomeIcon icon={faListUl} />
           </Link>
         </header>
       <SearchBar initialText={query}/>
-      <p>Resultaten voor {query}</p>
       <MapComponent/>
       </React.Fragment>
     );
