@@ -102,6 +102,7 @@ class SearchBar extends Component<SearchBarProps, SearchBarState> {
             className="SearchBar__reset-icon"
             onClick={this.handleReset}
             type="button"
+            title="Zoekbalk leeg maken"
           >
             <FontAwesomeIcon icon={faTimes} />
           </button>
@@ -110,6 +111,7 @@ class SearchBar extends Component<SearchBarProps, SearchBarState> {
           type="button"
           className="SearchBar__search-icon"
           onClick={this.handleOnSubmit}
+          title="Zoeken"
         >
           <FontAwesomeIcon icon={faSearch} />
         </button>
