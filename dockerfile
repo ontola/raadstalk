@@ -1,22 +1,29 @@
 FROM node:11 as builder
 WORKDIR /usr/src/app
 
-COPY package.json yarn.lock ./
-RUN yarn
-COPY . ./
+COPY front/package.json front/yarn.lock ./front/
+COPY server/package.json server/yarn.lock ./server/
+WORKDIR /usr/src/app/server
+RUN yarn --frozen-lockfile
+WORKDIR /usr/src/app/front
+RUN yarn --frozen-lockfile
+WORKDIR /usr/src/app/
+COPY ./front ./front
+COPY ./server ./server/
+WORKDIR /usr/src/app/server
+RUN yarn run build
+WORKDIR /usr/src/app/front
 RUN yarn run build
 
+# Production
 FROM node:11-alpine
 WORKDIR /usr/src/app
 
-COPY package.json /usr/src/app/package.json
-RUN npm i -q --production
-COPY --from=builder /usr/src/app/dist /usr/src/app/dist
-COPY --from=builder /usr/src/app/static /usr/src/app/static
+COPY server/package.json server/yarn.lock ./
+RUN yarn install --production --frozen-lockfile
 
-ENV NODE_ENV 'production'
-ARG ARGU_API_URL
-ENV ARGU_API_URL $ARGU_API_URL
+COPY --from=builder /usr/src/app/server/dist/server.js ./
+COPY --from=builder /usr/src/app/front/build /usr/src/app/www/
 
 EXPOSE 8080
-CMD ["node", "./dist/private/server.js"]
+CMD ["node", "server.js"]
