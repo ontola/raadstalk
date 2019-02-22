@@ -4,13 +4,13 @@ A webapplication that uses [Open Raadsinformatie](http://openraadsinformatie.nl)
 
 ## Run Front-end
 
-- `yarn`
-- `yarn start`
+- `cd front`
+- `yarn dev`
 
 ## Run Back-end
 
 - `cd server`
-- `node server`
+- `yarn dev`
 
 ## Deployment
 
