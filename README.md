@@ -11,3 +11,7 @@ A webapplication that uses [Open Raadsinformatie](http://openraadsinformatie.nl)
 
 - `cd server`
 - `node server`
+
+## Deployment
+
+- Buid the docker image `docker build .`

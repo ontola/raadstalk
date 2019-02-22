@@ -55,8 +55,8 @@ export function getPopularItems(): ListItemType[] {
 
 const mockPupularItems: ListItemType[] = [
   {
-    label: "EnergieTransitie",
-    hitCount: 420,
+    label: "Energie",
+    hitCount: 520,
   },  {
     label: "Omgevingswet",
     hitCount: 412,
@@ -73,7 +73,7 @@ const mockPupularItems: ListItemType[] = [
     label: "Digitalisering",
     hitCount: 342,
   },  {
-    label: "Energiebesparing",
+    label: "Besparing",
     hitCount: 331,
   },  {
     label: "AVG",

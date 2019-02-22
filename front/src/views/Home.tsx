@@ -3,7 +3,6 @@ import React from "react";
 import ListSearch from "../components/ListSearch";
 import VNGRealisatieLogoSvg from "../images/VNGRealisatieLogo.svg";
 import SearchBar from "../components/SearchBar";
-import { ListItemType } from "../types";
 import { getPopularItems } from "../API";
 
 const Home: React.FunctionComponent = () => {

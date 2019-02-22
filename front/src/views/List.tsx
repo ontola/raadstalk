@@ -33,7 +33,7 @@ const List: React.SFC<RouteComponentProps<any>> = (props) => {
   return (
     <React.Fragment>
       <header>
-        <BackButton/>
+        <BackButton />
         <Link
           to={paths.map(query)}
           className="Button Button--float-right"
@@ -44,9 +44,9 @@ const List: React.SFC<RouteComponentProps<any>> = (props) => {
           </span>
         </Link>
       </header>
-      <SearchBar initialText={query}/>
-      {loading && <Spinner/>}
-      {!loading && <ListSearch isMunicipality items={items} searchTerm={query}/>}
+      <SearchBar initialText={query} />
+      {loading && <Spinner />}
+      {!loading && <ListSearch isMunicipality items={items} searchTerm={query} />}
     </React.Fragment>
   );
 };
