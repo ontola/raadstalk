@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import BackButton from "../components/BackButton";
 import SearchBar from "../components/SearchBar";
 import paths from "../paths";
-import MapComponent from '../components/MapComponent';
+import MapComponent from "../components/MapComponent";
 
 const defaultProps = {
   match: {

@@ -42,7 +42,7 @@ const LinkComp = (props: LinkCompPropTypes) => {
       {props.children}
     </Link>
   );
-}
+};
 
 export default class ListItem extends Component<PropTypes> {
   public render() {

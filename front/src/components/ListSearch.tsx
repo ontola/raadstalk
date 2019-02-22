@@ -16,7 +16,7 @@ export default class ListSearch extends Component<ListSearchProps> {
       const values = this.props.items.map(({ hitCount }) => hitCount);
       const maxHit = Math.max(...values);
 
-      const result = this.props.items.map(({label, hitCount}) => {
+      const result = this.props.items.map(({ label, hitCount }) => {
         const percentage = 90 * (hitCount / maxHit);
 
         return (

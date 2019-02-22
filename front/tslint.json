@@ -5,6 +5,8 @@
   "extends": "tslint-config-airbnb",
   "rules": {
     "interface-name": [true, "never-prefix"],
-    "quotemark": [true, "avoid-escape", "jsx-double"]
+    "quotemark": [true, "avoid-escape", "jsx-double"],
+    "variable-name": false,
+    "import-name": false
   }
 }
