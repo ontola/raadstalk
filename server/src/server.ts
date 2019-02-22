@@ -2,6 +2,7 @@ import express, { Response, Request } from "express";
 import cors from "cors";
 import path from "path";
 import httpProxyMiddleware from "http-proxy-middleware";
+import { mockPupularItems } from "./mockdata";
 
 const whitelist = ["http://localhost:8080", "http://localhost:3000"];
 const staticDir = process.env.WWW_DIR || "www";
@@ -27,6 +28,10 @@ app.all("/search", httpProxyMiddleware({
   pathRewrite: { "^/search": "" },
   logLevel: process.env.NODE_ENV === "production" ? "info" :  "debug",
 }));
+
+app.all("/popular", (req: Request, res: Response) => {
+  res.send(mockPupularItems);
+});
 
 // Production, serve static files
 app.use(express.static(path.join(__dirname, staticDir)));

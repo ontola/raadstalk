@@ -1,4 +1,4 @@
-import { ListItemType } from "./types";
+import { ListItemType } from "../../types";
 import { number, string } from "prop-types";
 
 export function getSearchResults(query: string): Promise<ListItemType[]> {
@@ -49,40 +49,11 @@ function bucketsToListItems(items: ElasticBucket[]): ListItemType[] {
   });
 }
 
-export function getPopularItems(): ListItemType[] {
-  return mockPupularItems;
+export function getPopularItems(): Promise<ListItemType[]> {
+  return fetch("/popular", {
+    method: "POST",
+    mode: "cors",
+    credentials: "same-origin",
+  })
+  .then(response => response.json());
 }
-
-const mockPupularItems: ListItemType[] = [
-  {
-    label: "Energie",
-    hitCount: 520,
-  },  {
-    label: "Omgevingswet",
-    hitCount: 412,
-  },  {
-    label: "Klimaat",
-    hitCount: 385,
-  },  {
-    label: "Privacy",
-    hitCount: 370,
-  },  {
-    label: "Schulhulpverlening",
-    hitCount: 355,
-  },  {
-    label: "Digitalisering",
-    hitCount: 342,
-  },  {
-    label: "Besparing",
-    hitCount: 331,
-  },  {
-    label: "AVG",
-    hitCount: 320,
-  },  {
-    label: "Informatieveiligheid",
-    hitCount: 314,
-  },  {
-    label: "Sociaal domein",
-    hitCount: 308,
-  },
-];

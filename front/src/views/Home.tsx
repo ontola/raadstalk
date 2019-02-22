@@ -3,10 +3,9 @@ import React from "react";
 import ListSearch from "../components/ListSearch";
 import VNGRealisatieLogoSvg from "../images/VNGRealisatieLogo.svg";
 import SearchBar from "../components/SearchBar";
-import { getPopularItems } from "../API";
+import PopularContainer from "../containers/PopularContainer";
 
 const Home: React.FunctionComponent = () => {
-  const listItems = getPopularItems();
   return (
     <div>
       <header>
@@ -21,7 +20,7 @@ const Home: React.FunctionComponent = () => {
       </header>
       <SearchBar/>
       <p>Meest voorkomende termen:</p>
-      <ListSearch items={listItems} />
+      <PopularContainer />
     </div>
   );
 };

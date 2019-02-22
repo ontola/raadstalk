@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 
 import ListItem from "./ListItem";
-import { ListItemType } from "../types";
+import { ListItemType } from "../../../types";
 
 interface ListSearchProps {
   items: ListItemType[];
