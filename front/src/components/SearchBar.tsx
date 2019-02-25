@@ -1,4 +1,4 @@
-import React, { Component, ChangeEvent, FormEvent } from "react";
+import React, { Component, ChangeEvent } from "react";
 import Radium from "radium";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch, faTimes } from "@fortawesome/free-solid-svg-icons";

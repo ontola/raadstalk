@@ -1,6 +1,5 @@
 import React from "react";
 
-import ListSearch from "../components/ListSearch";
 import VNGRealisatieLogoSvg from "../images/VNGRealisatieLogo.svg";
 import SearchBar from "../components/SearchBar";
 import PopularContainer from "../containers/PopularContainer";

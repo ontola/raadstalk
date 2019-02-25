@@ -1,5 +1,4 @@
 import { ListItemType } from "../../types";
-import { number, string } from "prop-types";
 
 export function getSearchResults(query: string): Promise<ListItemType[]> {
   const data = {
