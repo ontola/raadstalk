@@ -9,6 +9,7 @@ WORKDIR /usr/src/app/front
 RUN yarn --frozen-lockfile
 WORKDIR /usr/src/app/
 COPY ./front ./front
+COPY ./types.ts ./types.ts
 COPY ./server ./server/
 WORKDIR /usr/src/app/server
 RUN yarn run build
