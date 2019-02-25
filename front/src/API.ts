@@ -20,7 +20,6 @@ export function getSearchResults(query: string): Promise<ListItemType[]> {
 
   return fetch("/search", {
     method: "POST",
-    mode: "cors",
     credentials: "same-origin",
     body: JSON.stringify(data),
   })
@@ -50,8 +49,7 @@ function bucketsToListItems(items: ElasticBucket[]): ListItemType[] {
 
 export function getPopularItems(): Promise<ListItemType[]> {
   return fetch("/popular", {
-    method: "POST",
-    mode: "cors",
+    method: "GET",
     credentials: "same-origin",
   })
   .then(response => response.json());
