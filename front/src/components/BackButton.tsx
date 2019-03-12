@@ -1,19 +1,18 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
-import paths from "../paths";
-import { Link } from "react-router-dom";
+import { withRouter, RouteComponentProps } from "react-router-dom";
 import React from "react";
 
 import "../styles/Button.scss";
 
-const BackButton = () =>
-  <Link
+const BackButton = (props: RouteComponentProps) =>
+  <button
     className="Button"
-    to={paths.home}
-    title="Terug naar startscherm"
+    onClick={props.history.goBack}
+    title="Vorige pagina"
   >
     <FontAwesomeIcon icon={faArrowLeft} />
     <span>Terug</span>
-  </Link>;
+  </button>;
 
-export default BackButton;
+export default withRouter(BackButton);

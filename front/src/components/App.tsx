@@ -6,6 +6,7 @@ import Home from "../views/Home";
 import List from "../views/List";
 import Map from "../views/Map";
 
+import "../styles/reset.scss";
 import "../styles/App.scss";
 
 const App: React.FunctionComponent = () => (
