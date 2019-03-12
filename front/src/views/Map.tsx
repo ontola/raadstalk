@@ -20,6 +20,7 @@ class List extends Component<RouteComponentProps<any>> {
           <Link
             to={paths.list(query)}
             className="Button"
+            title="Bekijk zoekresultaten in lijstweergave"
           >
             <FontAwesomeIcon icon={faListUl} />
             <span>

@@ -40,6 +40,7 @@ const List: React.SFC<RouteComponentProps<any>> = (props) => {
         <Link
           to={paths.map(query)}
           className="Button Button--float-right"
+          title="Bekijk zoekresultaten in kaartweergave"
         >
           <FontAwesomeIcon icon={faMap} />
           <span>

@@ -10,6 +10,7 @@ const BackButton = () =>
   <Link
     className="Button"
     to={paths.home}
+    title="Terug naar startscherm"
   >
     <FontAwesomeIcon icon={faArrowLeft} />
     <span>Terug</span>

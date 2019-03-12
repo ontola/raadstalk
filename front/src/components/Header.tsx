@@ -10,7 +10,11 @@ interface PropTypes {
 
 const Header = ({ children }: PropTypes) =>
   <header className="Header">
-    <Link to={paths.home} className="Logo">
+    <Link
+      to={paths.home}
+      className="Logo"
+      title="Terug naar startscherm"
+    >
       <span className="Logo--first-word">Raads</span>
       <span className="Logo--second-word">Talk</span>
     </Link>
