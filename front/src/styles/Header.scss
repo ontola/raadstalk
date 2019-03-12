@@ -1,0 +1,30 @@
+@import 'shared';
+
+.Header {
+  display: flex;
+  line-height: 30px;
+
+  &--children {
+    display: flex;
+    flex: 1;
+    justify-content: flex-end;
+  }
+}
+
+.Logo {
+  margin-right: 5px;
+  font-size: 15px;
+  text-decoration: none;
+
+  span {
+    font-weight: bold;
+  }
+
+  &--first-word {
+    color: $blue;
+  }
+
+  &--second-word {
+    color: $blue-dark;
+  }
+}

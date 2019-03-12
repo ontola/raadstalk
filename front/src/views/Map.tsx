@@ -7,6 +7,7 @@ import BackButton from "../components/BackButton";
 import SearchBar from "../components/SearchBar";
 import paths from "../paths";
 import MapComponent from "../components/MapComponent";
+import Header from "../components/Header";
 
 /** Show the list of municipalities + hit counts for a single query */
 class List extends Component<RouteComponentProps<any>> {
@@ -14,18 +15,18 @@ class List extends Component<RouteComponentProps<any>> {
     const query = this.props.match.params.query;
     return (
       <React.Fragment>
-        <header>
+        <Header>
           <BackButton/>
           <Link
             to={paths.list(query)}
-            className="Button Button--float-right"
+            className="Button"
           >
             <FontAwesomeIcon icon={faListUl} />
             <span>
               Lijst
             </span>
           </Link>
-        </header>
+        </Header>
       <SearchBar initialText={query}/>
       <MapComponent/>
       </React.Fragment>

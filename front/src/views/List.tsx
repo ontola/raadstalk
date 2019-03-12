@@ -10,6 +10,7 @@ import ListSearch from "../components/ListSearch";
 import { getSearchResults } from "../API";
 import { ListItemType } from "../../../types";
 import Spinner from "../components/Spinner";
+import Header from "../components/Header";
 
 /** Show the list of municipalities + hit counts for a single query */
 const List: React.SFC<RouteComponentProps<any>> = (props) => {
@@ -32,7 +33,7 @@ const List: React.SFC<RouteComponentProps<any>> = (props) => {
 
   return (
     <React.Fragment>
-      <header>
+      <Header>
         <BackButton />
         <Link
           to={paths.map(query)}
@@ -43,7 +44,7 @@ const List: React.SFC<RouteComponentProps<any>> = (props) => {
             Kaart
           </span>
         </Link>
-      </header>
+      </Header>
       <SearchBar initialText={query} />
       {loading && <Spinner />}
       {!loading && <ListSearch isMunicipality items={items} searchTerm={query} />}

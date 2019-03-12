@@ -1,24 +1,18 @@
 import React from "react";
 
-import VNGRealisatieLogoSvg from "../images/VNGRealisatieLogo.svg";
 import SearchBar from "../components/SearchBar";
+import Header from "../components/Header";
 import PopularContainer from "../containers/PopularContainer";
 
 const Home: React.FunctionComponent = () => {
   return (
     <div>
-      <header>
-        <img
-          src={VNGRealisatieLogoSvg}
-          alt="VNG"
-          style={{
-            width: "50px",
-          }}
-        />
-        <span>RaadsTalk</span>
-      </header>
+      <Header>
+        <span style={{ fontSize: "80%" }}>Wat bespreekt de gemeenteraad?</span>
+      </Header>
       <SearchBar/>
-      <p>Meest voorkomende termen:</p>
+      <p>Met RaadsTalk zoekt u in raadsdocumenten van meer dan 110 gemeenten in Nederland.</p>
+      <b>Meest besproken onderwerpen:</b>
       <PopularContainer />
     </div>
   );
