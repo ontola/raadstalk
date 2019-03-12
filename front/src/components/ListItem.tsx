@@ -42,7 +42,11 @@ const LinkComp = (props: LinkCompPropTypes) => {
     );
   }
   return (
-    <Link to={paths.list(props.label)} className="ListItem">
+    <Link
+      to={paths.list(props.label)}
+      className="ListItem"
+      title={`Bekijk waar ${props.label} werd besproken`}
+    >
       <span>{props.label}</span>
       {props.children}
     </Link>
