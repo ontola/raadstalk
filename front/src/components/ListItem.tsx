@@ -3,6 +3,8 @@ import paths from "../paths";
 import { Link } from "react-router-dom";
 
 import "../styles/ListItem.scss";
+import { faFileAlt, faExternalLinkAlt } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export interface PropTypes {
   /** Text label*/
@@ -33,12 +35,15 @@ const LinkComp = (props: LinkCompPropTypes) => {
         target="_blank"
         title="Bekijk in Open Raadsinformatie"
       >
+        <span>{props.label}</span>
+        <FontAwesomeIcon className={"ListItem__external"} icon={faExternalLinkAlt} />
         {props.children}
       </a>
     );
   }
   return (
     <Link to={paths.list(props.label)} className="ListItem">
+      <span>{props.label}</span>
       {props.children}
     </Link>
   );
@@ -52,8 +57,10 @@ export default class ListItem extends Component<PropTypes> {
         searchTerm={this.props.searchTerm}
         label={this.props.label}
       >
-        <span>{this.props.label}</span>
-        <span className="ListItem-hits">{this.props.hitCount}</span>
+        <span className="ListItem-hits">
+          {this.props.hitCount}
+          <FontAwesomeIcon icon={faFileAlt} />
+        </span>
         <div className="ListItem-bar" style={{ width: `${this.props.widthPercent}%` }}>&nbsp;</div>
       </LinkComp>
     );

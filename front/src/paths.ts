@@ -6,7 +6,7 @@ const paths = {
   map: (query: string) => `/map/${query}`,
   /** Open OpenRaadsInformatie and search for a specific term */
   ORISearch: (query: string = "") => `http://zoek.openraadsinformatie.nl/#/search/${query}/`,
-  contactMail: "info@vngrealisatie.nl",
+  contactMail: "mailto:info@vngrealisatie.nl?SUBJECT=RaadsTalk",
   // TODO: make repo public.
   github: "https://github.com",
   openRaadsInformatie: "https://openraadsinformatie.nl",

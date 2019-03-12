@@ -47,7 +47,7 @@ export default class ListSearch extends Component<ListSearchProps> {
     }
     return (
       <div className="ListSearch">
-        {this.props.count && <p>Er zijn {this.props.count} resultaten gevonden.</p>}
+        {this.props.count && <p><b>{this.props.count}</b> keer besproken in gemeenteraden.</p>}
         {this.renderListItems()}
       </div>
     );
