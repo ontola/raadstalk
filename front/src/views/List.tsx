@@ -16,6 +16,7 @@ import Header from "../components/Header";
 const List: React.SFC<RouteComponentProps<any>> = (props) => {
 
   const [items, setItems] = useState<ListItemType[]>([]);
+  const [count, setCount] = useState<number>(0);
   const [loading, setLoading] = useState<boolean>(false);
 
   const query = props.match.params.query;
@@ -25,7 +26,8 @@ const List: React.SFC<RouteComponentProps<any>> = (props) => {
       setLoading(true);
       getSearchResults(query).then((result) => {
         setLoading(false);
-        return setItems(result);
+        setItems(result.items);
+        setCount(result.count);
       });
     },
     [query],
@@ -47,7 +49,7 @@ const List: React.SFC<RouteComponentProps<any>> = (props) => {
       </Header>
       <SearchBar initialText={query} />
       {loading && <Spinner />}
-      {!loading && <ListSearch isMunicipality items={items} searchTerm={query} />}
+      {!loading && <ListSearch isMunicipality count={count} items={items} searchTerm={query} />}
     </React.Fragment>
   );
 };

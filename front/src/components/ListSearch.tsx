@@ -7,6 +7,7 @@ interface ListSearchProps {
   items: ListItemType[];
   isMunicipality: boolean;
   searchTerm?: string;
+  count?: number;
 }
 
 export default class ListSearch extends Component<ListSearchProps> {
@@ -46,6 +47,7 @@ export default class ListSearch extends Component<ListSearchProps> {
     }
     return (
       <div className="ListSearch">
+        {this.props.count && <p>Er zijn {this.props.count} resultaten gevonden.</p>}
         {this.renderListItems()}
       </div>
     );

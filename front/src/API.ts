@@ -1,6 +1,7 @@
-import { ListItemType } from "../../types";
+import { ListItemType, SearchResultsType } from "../../types";
+import { SearchResponse } from "elasticsearch";
 
-export function getSearchResults(query: string): Promise<ListItemType[]> {
+export function getSearchResults(query: string): Promise<SearchResultsType> {
   const data = {
     query: {
       match: {
@@ -24,7 +25,16 @@ export function getSearchResults(query: string): Promise<ListItemType[]> {
     body: JSON.stringify(data),
   })
   .then(response => response.json())
-  .then(json => bucketsToListItems(json.aggregations.municipalities.buckets));
+  .then(json => convertJSON(json));
+}
+
+function convertJSON(json: SearchResponse<any>): SearchResultsType {
+  const results: SearchResultsType = {
+    count: json.hits.total,
+    items: bucketsToListItems(json.aggregations.municipalities.buckets),
+  };
+
+  return results;
 }
 
 interface ElasticBucket {
