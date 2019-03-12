@@ -43,12 +43,15 @@ interface SearchBarState {
 }
 
 class SearchBar extends Component<SearchBarProps, SearchBarState> {
+  private searchBarRef: React.RefObject<HTMLInputElement>;
+
   constructor(props: SearchBarProps) {
     super(props);
     this.state = {
       text: this.props.initialText || "",
     };
 
+    this.searchBarRef = React.createRef();
     this.handleChange = this.handleChange.bind(this);
     this.handleOnSubmit = this.handleOnSubmit.bind(this);
     this.handleReset = this.handleReset.bind(this);
@@ -79,7 +82,9 @@ class SearchBar extends Component<SearchBarProps, SearchBarState> {
     this.setState({
       text: "",
     });
-    this.props.history.push(paths.home);
+    if (this.searchBarRef.current) {
+      this.searchBarRef.current.focus();
+    }
   }
 
   render() {
@@ -95,6 +100,7 @@ class SearchBar extends Component<SearchBarProps, SearchBarState> {
           style={inputStyle}
           type="text"
           onChange={this.handleChange}
+          ref={this.searchBarRef}
           value={this.state.text}
         />
         {this.state.text &&

@@ -6,3 +6,11 @@
   left: 0;
   right: 0;
 }
+
+.leaflet-popup-content {
+  margin: 10px 11px !important;
+
+  p {
+    margin: 5px 0 !important;
+  }
+}
