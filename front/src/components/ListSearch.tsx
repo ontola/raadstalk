@@ -1,13 +1,16 @@
 import React, { Component } from "react";
 
 import ListItem from "./ListItem";
-import { ListItemType } from "../../../types";
+import { PopularTerm } from "../../../types";
 
-interface ListSearchProps {
-  items: ListItemType[];
-  isMunicipality: boolean;
+export interface SearchResultProps {
+  items: PopularTerm[];
   searchTerm?: string;
   count?: number;
+}
+
+interface ListSearchProps extends SearchResultProps {
+  isMunicipality: boolean;
 }
 
 export default class ListSearch extends Component<ListSearchProps> {

@@ -8,14 +8,14 @@ import SearchBar from "../components/SearchBar";
 import paths from "../paths";
 import ListSearch from "../components/ListSearch";
 import { getSearchResults } from "../API";
-import { ListItemType } from "../../../types";
+import { PopularTerm } from "../../../types";
 import Spinner from "../components/Spinner";
 import Header from "../components/Header";
 
 /** Show the list of municipalities + hit counts for a single query */
 const List: React.SFC<RouteComponentProps<any>> = (props) => {
 
-  const [items, setItems] = useState<ListItemType[]>([]);
+  const [items, setItems] = useState<PopularTerm[]>([]);
   const [count, setCount] = useState<number>(0);
   const [loading, setLoading] = useState<boolean>(false);
 

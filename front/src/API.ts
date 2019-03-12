@@ -1,4 +1,4 @@
-import { ListItemType, SearchResultsType } from "../../types";
+import { PopularTerm, SearchResultsType, Aggregate } from "../../types";
 import { SearchResponse } from "elasticsearch";
 
 export function getSearchResults(query: string): Promise<SearchResultsType> {
@@ -42,7 +42,7 @@ interface ElasticBucket {
   key: string;
 }
 
-function bucketsToListItems(items: ElasticBucket[]): ListItemType[] {
+function bucketsToListItems(items: ElasticBucket[]): Aggregate[] {
   return items.map((item) => {
     const parts = item.key.split("_");
     const label = parts
@@ -52,12 +52,13 @@ function bucketsToListItems(items: ElasticBucket[]): ListItemType[] {
 
     return {
       label,
+      oriKey: item.key,
       hitCount: item.doc_count,
     };
   });
 }
 
-export function getPopularItems(): Promise<ListItemType[]> {
+export function getPopularItems(): Promise<PopularTerm[]> {
   return fetch("/popular", {
     method: "GET",
     credentials: "same-origin",

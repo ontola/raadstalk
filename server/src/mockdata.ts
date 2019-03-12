@@ -1,6 +1,6 @@
-import { ListItemType } from "../../types";
+import { PopularTerm } from "../../types";
 
-export const mockPupularItems: ListItemType[] = [
+export const mockPupularItems: PopularTerm[] = [
   {
     label: "Energie",
     hitCount: 520,
