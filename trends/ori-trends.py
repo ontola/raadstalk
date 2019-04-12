@@ -27,7 +27,7 @@ r = Redis(
 )
 
 # Test for redis connection and show databases
-print r.info('keyspace')
+print 'Redis databases:', r.info('keyspace')
 
 
 def clean_corpus(corpus):
@@ -71,6 +71,8 @@ def clean_corpus(corpus):
 
 
 def es_search_month():
+    print 'Getting ES results per month'
+
     valid_fields = ['text']
 
     months = [
@@ -121,6 +123,8 @@ def es_search_month():
 
 
 def es_search_municipality():
+    print 'Getting ES results per municipality'
+
     valid_fields = ['text']
 
     exclude_indices = [
@@ -162,6 +166,8 @@ def es_search_municipality():
 
 
 def weighwords(amount=20):
+    print 'Processing parsimonious weighwords algorithm'
+
     def iter_dump(file_path):
         with open(file_path, 'r') as f:
             all_lines = f.read()
@@ -181,6 +187,9 @@ def weighwords(amount=20):
 
     model = ParsimoniousLM([data for _, data in read_files()], w=.01)
 
+    print
+    print
+
     for name, terms in read_files():
         print("######  {}  ######".format(name))
         if not terms:
@@ -193,13 +202,15 @@ def weighwords(amount=20):
             print("{:<40}{:.4f}".format(term, np.exp(p)))
 
         r.delete(name)
-        r.rpush(name, [term for term, _ in top_terms])
+        r.rpush(name, *[term for term, _ in top_terms])
         print
         print
 
 
 # Main
 if __name__ == '__main__':
+    print 'Start processing'
     es_search_month()
     es_search_municipality()
     weighwords()
+    print 'Done processing'
