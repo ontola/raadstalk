@@ -90,7 +90,9 @@ def es_search_month():
         (1, 2019),
     ]
 
-    os.mkdir('maand-dumps')
+    if not os.path.exists('maand-dumps'):
+        os.mkdir('maand-dumps')
+
     for month, year in months:
         dump_file = open('maand-dumps/{}-{:02d}.dump'.format(year, month), 'w')
 
@@ -134,7 +136,9 @@ def es_search_municipality():
 
     indices = es.indices.get('*')
 
-    os.mkdir('gemeente-dumps')
+    if not os.path.exists('gemeente-dumps'):
+        os.mkdir('gemeente-dumps')
+
     for index in indices:
         if index in exclude_indices:
             continue
