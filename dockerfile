@@ -29,4 +29,4 @@ COPY --from=builder /usr/src/app/front/build /usr/src/app/www/
 WORKDIR /usr/src/app/server/src
 
 EXPOSE 8080
-CMD ["node", "server.js"]
+CMD ["node", "index.js"]

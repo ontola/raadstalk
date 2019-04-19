@@ -4,14 +4,18 @@
   "private": true,
   "homepage": "https://raadstalk.vngrealisatie.nl",
   "dependencies": {
+    "@types/ioredis": "^4.0.10",
+    "@types/node-fetch": "^2.3.2",
     "cors": "^2.8.5",
     "express": "^4.16.4",
     "http-proxy-middleware": "^0.19.1",
+    "ioredis": "^4.9.0",
     "morgan": "^1.9.1",
+    "node-fetch": "^2.3.0",
     "typescript": "^3.3.3"
   },
   "scripts": {
-    "dev": "ts-node-dev ./src/server.ts",
+    "dev": "ts-node-dev ./src/index.ts",
     "build": "tsc",
     "lint": "tslint -c tslint.json 'src/**/*.{ts,tsx}'",
     "test": "react-scripts test",

@@ -5,7 +5,7 @@ import express, { Response, Request } from "express";
 import httpProxyMiddleware from "http-proxy-middleware";
 import morgan from "morgan";
 
-import { mockPupularItems } from "./mockdata";
+import { getRedisWords, getHitCounts } from "./words";
 
 const staticDir = process.env.WWW_DIR || "/usr/src/app/www/";
 const defaultPort = 8080;
@@ -23,7 +23,10 @@ app.all("/search", httpProxyMiddleware({
 }));
 
 app.get("/popular", (req: Request, res: Response) => {
-  res.send(mockPupularItems);
+  getRedisWords()
+    .then(result => res.send(result));
+
+  getHitCounts();
 });
 
 // Production, serve static files
