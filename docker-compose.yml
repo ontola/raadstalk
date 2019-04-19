@@ -15,9 +15,12 @@ services:
     build: .
     ports:
      - "8080:8080"
-  counter:
+  countall:
     build: .
-    command: "node count"
+    command: "node countAll.js"
+  countlastmonth:
+    build: .
+    command: "node countLastMonth.js"
   redis:
     image: "redis:alpine"
     volumes:

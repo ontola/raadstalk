@@ -10,7 +10,13 @@ A webapplication that uses [Open Raadsinformatie](http://openraadsinformatie.nl)
 - `docker-compose up trends` for running trends task to update the words
 - `docker-compose exec ` for updating trends task to update the counts
 
+
 If you want to work locally on some specific service (e.g. the server), set the service scale parameter to 0: `docker-compose up --build --scale app=0`
+
+## Redis configuration
+
+Use the `raadstalk.config` namespace for config.
+StartDate = `raadstalk.config.start.2018-01`
 
 ## Run front-end
 

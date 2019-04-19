@@ -1,6 +1,12 @@
 import { setHitCounts } from "./words";
 
-const DATE = { year: 2018 };
+const startYear = 2017
 
-console.log("COUNT_ALL");
+const endDate = {
+  year: new Date().getFullYear,
+  month: new Date().getMonth,
+};
+
+const datesArray = for (i = startYear, )
+
 setHitCounts(DATE);
