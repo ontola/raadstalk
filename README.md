@@ -4,7 +4,13 @@ A webapplication that uses [Open Raadsinformatie](http://openraadsinformatie.nl)
 
 ## Run using docker-compose
 
-- `docker-compose up`
+- `docker-compose up --build web`
+- Visit `http://localhost` for the app.
+- Visit `http://admin.localhost` for managing the topics.
+- `docker-compose up trends` for running trends task
+
+
+If you want to work locally on some specific service (e.g. the server), set the service scale parameter to 0: `docker-compose up --build --scale app=0`
 
 ## Run front-end
 
