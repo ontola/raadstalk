@@ -8,8 +8,7 @@ A webapplication that uses [Open Raadsinformatie](http://openraadsinformatie.nl)
 - Visit `http://localhost` for the app.
 - Visit `http://admin.localhost` for managing the topics.
 - `docker-compose up trends` for running trends task to update the words
-- `docker-compose exec ` for updating trends task to update the counts
-
+- `docker-compose up countall` for updating trends task to update the counts
 
 If you want to work locally on some specific service (e.g. the server), set the service scale parameter to 0: `docker-compose up --build --scale app=0`
 
@@ -21,11 +20,13 @@ StartDate = `raadstalk.config.start.2018-01`
 ## Run front-end
 
 - `cd front`
+- `yarn`
 - `yarn dev`
 
 ## Run server
 
 - `cd server`
+- `yarn`
 - `yarn dev`
 
 ## Run front-end + server using docker

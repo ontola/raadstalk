@@ -1,4 +1,5 @@
 import ioredis, { Redis } from "ioredis";
+import { PopularTerm } from "../../types";
 
 export interface WordUpdaterArgs {
   month?: number;
