@@ -5,7 +5,9 @@ import express, { Response, Request } from "express";
 import httpProxyMiddleware from "http-proxy-middleware";
 import morgan from "morgan";
 
-import { mockPupularItems } from "./mockdata";
+import { oriURL } from "./config";
+import WordUpdater from "./WordUpdater";
+import { PopularTerm } from "../../types";
 
 const staticDir = process.env.WWW_DIR || "/usr/src/app/www/";
 const defaultPort = 8080;
@@ -14,16 +16,20 @@ const app = express();
 app.use(cors());
 app.use(morgan("combined"));
 
+const DATE = { year: 2018 };
+
 // Proxy search requests, remove `/search` from URL
 app.all("/search", httpProxyMiddleware({
-  target: "https://api.openraadsinformatie.nl/v1/elastic/ori_*/_search",
+  target: oriURL,
   changeOrigin: true,
   pathRewrite: { "^/search": "" },
   logLevel: process.env.NODE_ENV === "production" ? "info" :  "debug",
 }));
 
 app.get("/popular", (req: Request, res: Response) => {
-  res.send(mockPupularItems);
+  new WordUpdater(DATE)
+    .getWordCounts()
+    .then((result: PopularTerm[]) => res.send(result));
 });
 
 // Production, serve static files

@@ -1,0 +1,46 @@
+version: '3.3'
+services:
+  web:
+    image: nginx:alpine
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+    depends_on:
+      - app
+      - trends
+      - phpredisadmin
+  app:
+    build: .
+    ports:
+     - "8080:8080"
+  countall:
+    build: .
+    command: "node countAll.js"
+  countlastmonth:
+    build: .
+    command: "node countLastMonth.js"
+  redis:
+    image: "redis:alpine"
+    volumes:
+      - redis-data:/data
+    ports:
+      - '6379:6379'
+  trends:
+    build: trends
+    depends_on:
+      - redis
+  phpredisadmin:
+    image: erikdubbelboer/phpredisadmin:latest
+    environment:
+      - ADMIN_USER=admin
+      - ADMIN_PASS=oritrends
+      - REDIS_1_HOST=redis
+      - REDIS_1_PORT=6379
+    depends_on:
+      - redis
+    ports:
+      - '8888:80'
+volumes:
+  redis-data:
