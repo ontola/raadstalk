@@ -1,38 +1,33 @@
 import { setHitCounts } from "./words";
 import { WordUpdaterArgs } from "./WordUpdater";
 
-const startYear = 2017
+// Should start the getCounts process for all months up until the last one.
 
-// const previousMonthNumber = () => {
-//   const now = new Date();
-//   now.setMonth(now.getMonth() -1 )
-//   return now.getMonth();
-// }
-
-// const endDate: WordUpdaterArgs = {
-//   year: new Date().getFullYear(),
-//   month: previousMonthNumber(),
-// };
-
-const monthsCount = 10;
+const startYear = 2017;
+const startMonth = 0;
+const monthsCount = 20;
 
 let i;
 const datesArray: WordUpdaterArgs[] = [];
-for (i = 0; i > monthsCount; i++) {
-  const date = new Date(startYear)
-  date.setMonth(date.getMonth() + 1);
-  console.log(date);
+const date = new Date();
+date.setFullYear(startYear);
+date.setMonth(startMonth);
+
+for (i = 0; i < monthsCount; i += 1) {
   datesArray.push({
     year: date.getFullYear(),
-    month: date.getMonth(),
-  })
+    month: date.getMonth() + 1,
+  });
+  date.setMonth(date.getMonth() + 1);
 }
 
-setCounts(datesArray);
+setCounts(datesArray)
+.then(() => console.log("All words counted"))
+.catch(e => console.error(e));
 
 async function setCounts(array: WordUpdaterArgs[]) {
+  console.log("Setting counts for:", array);
   for (const date of datesArray) {
     await setHitCounts(date);
   }
-  console.log('Done!');
 }
