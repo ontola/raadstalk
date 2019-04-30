@@ -6,6 +6,7 @@ import ListSearch from "../components/ListSearch";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight, faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { getPreviousMonth, addMonth, subtractMonth, startDate } from "../helpers/dates";
+import { bugsnagClient } from "../index";
 
 /** Show the list of municipalities + hit counts for a single query */
 const PopularContainer: React.SFC<any> = (props) => {
@@ -13,13 +14,19 @@ const PopularContainer: React.SFC<any> = (props) => {
   const [items, setItems] = useState<PopularTerm[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [date, setDate] = useState<YearMonth>(getPreviousMonth());
+  const [error, setError] = useState<Error | null>(null);
 
   useEffect(
     () => {
       setLoading(true);
-      getPopularItems(date).then((result) => {
+      getPopularItems(date)
+      .then((result) => {
         setLoading(false);
         return setItems(result);
+      })
+      .catch((e) => {
+        setError(e);
+        bugsnagClient.notify(e);
       });
     },
     [date],
@@ -32,6 +39,10 @@ const PopularContainer: React.SFC<any> = (props) => {
   const downDate = () => {
     setDate(subtractMonth(date));
   };
+
+  if (error) {
+    return <p>Error: {error.message}</p>;
+  }
 
   return (
     <React.Fragment>

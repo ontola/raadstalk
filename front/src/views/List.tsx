@@ -24,7 +24,8 @@ const List: React.SFC<RouteComponentProps<any>> = (props) => {
   useEffect(
     () => {
       setLoading(true);
-      getSearchResults(query).then((result) => {
+      getSearchResults(query)
+      .then((result) => {
         setLoading(false);
         setItems(result.items);
         setCount(result.count);

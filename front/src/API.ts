@@ -1,5 +1,6 @@
 import { PopularTerm, SearchResultsType, Aggregate, YearMonth } from "../../types";
 import { SearchResponse } from "elasticsearch";
+import { bugsnagClient } from "./index";
 
 export function getSearchResults(query: string): Promise<SearchResultsType> {
   const data = {
@@ -25,7 +26,15 @@ export function getSearchResults(query: string): Promise<SearchResultsType> {
     body: JSON.stringify(data),
   })
   .then(response => response.json())
-  .then(json => convertJSON(json));
+  .then(json => convertJSON(json))
+  .catch((e) => {
+    bugsnagClient.notify(e);
+    return {
+      items: [],
+      count: 0,
+      error: e,
+    };
+  });
 }
 
 function convertJSON(json: SearchResponse<any>): SearchResultsType {
