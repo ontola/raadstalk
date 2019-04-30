@@ -42,4 +42,4 @@ StartDate = `raadstalk.config.start.2018-01`
 - Semaphore automatically builds after each new commit on master.
 - SSH into the server `ssh root@83.96.241.31`.
 - Make sure `~/dockerkey` contains a valid [gcloud access token](https://cloud.google.com/container-registry/docs/advanced-authentication#access_token).
-- Run `~/recreate_raadstalk.sh`
+- Run `~/renew_raadstalk.sh`

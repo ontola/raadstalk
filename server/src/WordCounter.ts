@@ -2,6 +2,7 @@ import nodeFetch from "node-fetch";
 
 import { oriURL } from "./config";
 import { PopularTerm } from "../../types";
+import { errorHandler } from "./error";
 
 class WordCounter {
   public getCounts(words: string[]): Promise<PopularTerm[]> {
@@ -14,7 +15,14 @@ class WordCounter {
           label: word,
           hitCount: counts[index],
         }),
-      ));
+      ))
+      .catch((e: Error) => {
+        errorHandler(e);
+        return [{
+          label: "Error while getting counts!",
+          hitCount: 0,
+        }];
+      });
   }
 
   private getCount(word: string): Promise<number> {

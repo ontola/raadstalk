@@ -1,5 +1,6 @@
 import ioredis, { Redis } from "ioredis";
 import { PopularTerm, YearMonth } from "../../types";
+import { errorHandler } from './error';
 
 const namespace = "raadstalk";
 
@@ -24,7 +25,7 @@ class WordUpdater {
       .lrange(this.monthIndex, 0, 20)
       .then((result: string[]) => result)
       .catch((e) => {
-        console.log(e);
+        errorHandler(e);
         return [];
       });
   }
@@ -40,7 +41,8 @@ class WordUpdater {
 
     return this
       .redis
-      .mset(keyValueList);
+      .mset(keyValueList)
+      .catch(errorHandler);
   }
 
   public getWordCounts(): Promise<PopularTerm[]> {
@@ -54,7 +56,8 @@ class WordUpdater {
             hitCount: counts[i],
             label: word,
           }),
-        )),
+        ))
+      .catch(errorHandler),
     );
   }
 
