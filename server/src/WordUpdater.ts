@@ -1,6 +1,6 @@
 import ioredis, { Redis } from "ioredis";
 import { PopularTerm, YearMonth } from "../../types";
-import { errorHandler } from './error';
+import { errorHandler } from "./error";
 
 const namespace = "raadstalk";
 
