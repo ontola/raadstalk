@@ -16,8 +16,6 @@ const app = express();
 app.use(cors());
 app.use(morgan("combined"));
 
-const DATE = { year: 2018 };
-
 // Proxy search requests, remove `/search` from URL
 app.all("/search", httpProxyMiddleware({
   target: oriURL,
@@ -26,8 +24,14 @@ app.all("/search", httpProxyMiddleware({
   logLevel: process.env.NODE_ENV === "production" ? "info" :  "debug",
 }));
 
-app.get("/popular", (req: Request, res: Response) => {
-  new WordUpdater(DATE)
+app.get("/popular/:date", (req: Request, res: Response) => {
+  const yearRegex = /\d{4}/;
+  const monthRegex = /.*-(\d{2})/;
+  const date = {
+    year: Number(yearRegex.exec(req.params.date)[0]),
+    month: Number(monthRegex.exec(req.params.date)[1]),
+  };
+  new WordUpdater(date)
     .getWordCounts()
     .then((result: PopularTerm[]) => res.send(result));
 });

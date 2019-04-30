@@ -1,7 +1,8 @@
-import WordUpdater, { WordUpdaterArgs } from "./WordUpdater";
+import WordUpdater from "./WordUpdater";
 import WordCounter from "./WordCounter";
+import { YearMonth } from "../../types";
 
-export const setHitCounts = async (date: WordUpdaterArgs) => {
+export const setHitCounts = async (date: YearMonth) => {
   const wordUpdater = new WordUpdater(date);
   const wordList = await wordUpdater.getWords();
   const wordCounts = await new WordCounter().getCounts(wordList);

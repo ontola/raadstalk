@@ -1,10 +1,5 @@
 import ioredis, { Redis } from "ioredis";
-import { PopularTerm } from "../../types";
-
-export interface WordUpdaterArgs {
-  month?: number;
-  year?: number;
-}
+import { PopularTerm, YearMonth } from "../../types";
 
 const namespace = "raadstalk";
 
@@ -16,7 +11,7 @@ class WordUpdater {
   constructor({
     year,
     month,
-  }: WordUpdaterArgs = {}) {
+  }: YearMonth) {
     this.redis = new ioredis(6379, "redis");
 
     const normalizedMonth = (month || new Date().getMonth()).toString().padStart(2, "0");

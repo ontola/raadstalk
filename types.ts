@@ -24,3 +24,9 @@ export interface MunicipalityType {
   cbsCode: string;
   polygon: PostionType[];
 }
+
+export interface YearMonth {
+  year: number;
+  // From 1 to 12
+  month: number;
+}

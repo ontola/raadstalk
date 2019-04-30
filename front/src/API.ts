@@ -1,4 +1,4 @@
-import { PopularTerm, SearchResultsType, Aggregate } from "../../types";
+import { PopularTerm, SearchResultsType, Aggregate, YearMonth } from "../../types";
 import { SearchResponse } from "elasticsearch";
 
 export function getSearchResults(query: string): Promise<SearchResultsType> {
@@ -58,8 +58,8 @@ function bucketsToListItems(items: ElasticBucket[]): Aggregate[] {
   });
 }
 
-export function getPopularItems(): Promise<PopularTerm[]> {
-  return fetch("/popular", {
+export function getPopularItems(date: YearMonth): Promise<PopularTerm[]> {
+  return fetch(`/popular/${date.year.toString()}-${date.month.toString().padStart(2, "0")}`, {
     method: "GET",
     credentials: "same-origin",
   })

@@ -11,4 +11,21 @@
   span {
     padding: 5px;
   }
+
+  &__date {
+    color: $blue;
+    padding: 4px;
+
+    &:hover {
+      color: $blue-dark;
+    }
+
+    &:active {
+      color: $g4;
+    }
+
+    &:disabled {
+      color: $g1;
+    }
+  }
 }

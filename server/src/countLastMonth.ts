@@ -1,6 +1,11 @@
 import { setHitCounts } from "./words";
 
-const DATE = { year: 2018 };
+const now = new Date();
 
-console.log("COUNT_ALL");
-setHitCounts(DATE);
+const date = {
+  year: now.getFullYear(),
+  month: now.getMonth() - 1,
+};
+
+console.log(`COUNT_ALL for ${JSON.stringify(date)}`);
+setHitCounts(date);
