@@ -29,10 +29,11 @@ class WordUpdater {
     return this
       .redis
       .lrange(this.monthIndex, 0, 20)
-      .then((result: string[]) => result)
-      .catch((e) => {
-        errorHandler(e);
-        return [];
+      .then((result: string[]) => {
+        if (result.length === 0) {
+          throw Error(`No words found for ${this.monthIndex}`);
+        }
+        return result;
       });
   }
 
