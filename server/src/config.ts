@@ -3,7 +3,7 @@ import dotenv from "dotenv";
 const envs = dotenv.config();
 
 if (envs.error) {
-  console.log(envs.error);
+  console.log("Error when loading .env:", envs.error);
 }
 
 export const oriURL = process.env.ORI_URL ||

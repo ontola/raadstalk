@@ -10,7 +10,11 @@ A webapplication that uses [Open Raadsinformatie](http://openraadsinformatie.nl)
 - `docker-compose up trends` for running trends task to update the words
 - `docker-compose up countall` for updating trends task to update the counts
 
-If you want to work locally on some specific service (e.g. the server), set the service scale parameter to 0: `docker-compose up --build --scale app=0`
+## Local development
+
+- If you want to work locally on some specific service (e.g. the server), set the service scale parameter to 0: `docker-compose up --build --scale app=0`
+- Setup the environment variables `mv template.env .env`
+- Redis admin is available at `http://localhost:8888`
 
 ## Redis configuration
 
@@ -22,6 +26,8 @@ StartDate = `raadstalk.config.start.2018-01`
 - `cd front`
 - `yarn`
 - `yarn dev`
+
+The front-end uses a simple express proxy server for local development (`setupProxy.js`).
 
 ## Run server
 
