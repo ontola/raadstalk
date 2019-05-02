@@ -24,6 +24,7 @@ interface LinkCompPropTypes {
   isMunicipality: boolean;
   searchTerm?: string;
   label: string;
+  hitCount?: number;
 }
 
 const LinkComp = (props: LinkCompPropTypes) => {
@@ -45,7 +46,7 @@ const LinkComp = (props: LinkCompPropTypes) => {
     <Link
       to={paths.list(props.label)}
       className="ListItem"
-      title={`Bekijk waar ${props.label} werd besproken`}
+      title={`Bekijk in welke ${props.hitCount} documenten '${props.label}' werd besproken`}
     >
       <span>{props.label}</span>
       {props.children}
@@ -60,6 +61,7 @@ export default class ListItem extends Component<PropTypes> {
         isMunicipality={this.props.isMunicipality}
         searchTerm={this.props.searchTerm}
         label={this.props.label}
+        hitCount={this.props.hitCount}
       >
         <span className="ListItem-hits">
           {this.props.hitCount}

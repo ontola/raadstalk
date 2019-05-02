@@ -34,6 +34,10 @@ class WordUpdater {
           throw Error(`No words found for ${this.monthIndex}`);
         }
         return result;
+      })
+      .catch((e: Error) => {
+        errorHandler(e);
+        return [e.message];
       });
   }
 

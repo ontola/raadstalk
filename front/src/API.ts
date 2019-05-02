@@ -5,8 +5,16 @@ import { bugsnagClient } from "./index";
 export function getSearchResults(query: string): Promise<SearchResultsType> {
   const data = {
     query: {
-      match: {
-        description: query,
+      simple_query_string : {
+        query,
+        fields: [
+          "title",
+          "label",
+          "name",
+          "text",
+          "description",
+        ],
+        default_operator: "and",
       },
     },
     aggs: {
@@ -23,6 +31,10 @@ export function getSearchResults(query: string): Promise<SearchResultsType> {
   return fetch("/search", {
     method: "POST",
     credentials: "same-origin",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
     body: JSON.stringify(data),
   })
   .then(response => response.json())

@@ -12,6 +12,8 @@ import { PopularTerm } from "../../../types";
 import Spinner from "../components/Spinner";
 import Header from "../components/Header";
 
+const enableMap = false;
+
 /** Show the list of municipalities + hit counts for a single query */
 const List: React.SFC<RouteComponentProps<any>> = (props) => {
 
@@ -38,7 +40,7 @@ const List: React.SFC<RouteComponentProps<any>> = (props) => {
     <React.Fragment>
       <Header>
         <BackButton />
-        <Link
+        {enableMap && <Link
           to={paths.map(query)}
           className="Button Button--float-right"
           title="Bekijk zoekresultaten in kaartweergave"
@@ -48,6 +50,7 @@ const List: React.SFC<RouteComponentProps<any>> = (props) => {
             Kaart
           </span>
         </Link>
+      }
       </Header>
       <SearchBar initialText={query} />
       {loading && <Spinner />}

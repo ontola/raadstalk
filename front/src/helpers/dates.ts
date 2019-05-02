@@ -18,9 +18,13 @@ export const startDate: YearMonth = {
 };
 
 export const getPreviousMonth = () => {
+  const now = new Date();
+  now.setDate(1);
+  now.setMonth(now.getMonth() - 1);
+
   return {
-    year: 2018,
-    month: 1,
+    year: now.getFullYear(),
+    month: now.getMonth() + 1,
   };
 };
 
