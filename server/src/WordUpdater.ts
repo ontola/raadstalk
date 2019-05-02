@@ -1,8 +1,14 @@
 import ioredis, { Redis } from "ioredis";
 import { PopularTerm, YearMonth } from "../../types";
 import { errorHandler } from "./error";
+import { redisPort, redisHost } from "./config";
 
 const namespace = "raadstalk";
+
+const redisOptions = {
+  port: redisPort,
+  host: redisHost,
+};
 
 class WordUpdater {
   private redis: Redis;
@@ -13,7 +19,7 @@ class WordUpdater {
     year,
     month,
   }: YearMonth) {
-    this.redis = new ioredis(6379, "redis");
+    this.redis = new ioredis(redisOptions);
 
     const normalizedMonth = (month || new Date().getMonth()).toString().padStart(2, "0");
     this.monthIndex = `${namespace}.${year || new Date().getFullYear()}-${normalizedMonth}`;

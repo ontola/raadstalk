@@ -4,9 +4,11 @@
   "private": true,
   "homepage": "https://raadstalk.vngrealisatie.nl",
   "dependencies": {
+    "@types/dotenv": "^6.1.1",
     "@types/ioredis": "^4.0.10",
     "@types/node-fetch": "^2.3.2",
     "cors": "^2.8.5",
+    "dotenv": "^7.0.0",
     "express": "^4.16.4",
     "http-proxy-middleware": "^0.19.1",
     "ioredis": "^4.9.0",
