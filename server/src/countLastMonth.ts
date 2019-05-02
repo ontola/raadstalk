@@ -7,5 +7,5 @@ const date = {
   month: now.getMonth() - 1,
 };
 
-console.log(`COUNT_ALL for ${JSON.stringify(date)}`);
+console.log(`Counting all words for ${JSON.stringify(date)}`);
 setHitCounts(date);

@@ -16,11 +16,6 @@ A webapplication that uses [Open Raadsinformatie](http://openraadsinformatie.nl)
 - Setup the environment variables `mv template.env .env`
 - Redis admin is available at `http://localhost:8888`
 
-## Redis configuration
-
-Use the `raadstalk.config` namespace for config.
-StartDate = `raadstalk.config.start.2018-01`
-
 ## Run front-end
 
 - `cd front`

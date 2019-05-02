@@ -23,5 +23,8 @@
   },
   "include": [
     "./src", "../types.ts",
+  ],
+  "exclude": [
+    "./src/setupProxy.js"
   ]
 }
