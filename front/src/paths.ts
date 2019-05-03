@@ -9,6 +9,7 @@ const paths = {
   contactMail: "mailto:info@vngrealisatie.nl?SUBJECT=RaadsTalk",
   // TODO: make repo public.
   github: "https://github.com",
+  about: "/widget/about",
   openRaadsInformatie: "https://openraadsinformatie.nl",
 };
 
