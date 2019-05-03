@@ -10,21 +10,29 @@ services:
       - ./nginx.conf:/etc/nginx/nginx.conf
     depends_on:
       - app
-      - trends
+      - redis
       - phpredisadmin
 
   app:
     build: .
     ports:
      - "8080:8080"
+    depends_on:
+      - redis
 
   countall:
     build: .
     command: "node countAll.js"
+    depends_on:
+      - redis
+      - app
 
   countlastmonth:
     build: .
     command: "node countLastMonth.js"
+    depends_on:
+      - redis
+      - app
 
   redis:
     image: "redis:alpine"
