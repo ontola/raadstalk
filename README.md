@@ -44,3 +44,11 @@ The front-end uses a simple express proxy server for local development (`setupPr
 - SSH into the server `ssh root@83.96.241.31`.
 - Make sure `~/dockerkey` contains a valid [gcloud access token](https://cloud.google.com/container-registry/docs/advanced-authentication#access_token).
 - Run `~/renew_raadstalk.sh`
+
+## Use as widget
+
+```
+  <iframe src="http://localhost:3000/" height="482" width="337" frameborder="o" scrolling="no">
+    Raadstalk kan niet worden geladen. Bezoek <a href="http://raadstalk.nl">raadstalk.nl</a>
+  </iframe>
+```

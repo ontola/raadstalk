@@ -8,6 +8,7 @@ body {
 
   font-family: 'Montserrat', sans-serif;
   font-size: 12px;
+  margin: 0;
 }
 
 input {
@@ -16,6 +17,7 @@ input {
 
 #main-content {
   position: relative;
+  box-sizing: border-box;
   padding: 11px 33px 50px;
 
   footer {
