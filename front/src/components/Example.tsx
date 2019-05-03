@@ -6,7 +6,7 @@ const Example: React.FunctionComponent = () => (
   <div className="Example">
     <div className="Example__wrapper">
     <iframe
-      src="http://localhost:3000/widget"
+      src={`${window.location.origin}/widget`}
       height="100%"
       width="100%"
       frameBorder="0"
