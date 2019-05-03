@@ -2,6 +2,16 @@
 
 A webapplication that uses [Open Raadsinformatie](http://openraadsinformatie.nl) to show which topics are being discussed in Dutch municipalities.
 
+Check it out at [raadstalk.nl](http://raadstalk.nl)!
+
+## Use as widget
+
+```
+  <iframe src="http://localhost:3000/" height="100%" width="100%" frameborder="o" scrolling="no">
+    Raadstalk kan niet worden geladen. Bezoek <a href="http://raadstalk.nl">raadstalk.nl</a>
+  </iframe>
+```
+
 ## Run using docker-compose
 
 - `docker-compose up --build web`
@@ -42,13 +52,5 @@ The front-end uses a simple express proxy server for local development (`setupPr
 
 - Semaphore automatically builds after each new commit on master.
 - SSH into the server `ssh root@83.96.241.31`.
-- Make sure `~/dockerkey` contains a valid [gcloud access token](https://cloud.google.com/container-registry/docs/advanced-authentication#access_token).
-- Run `~/renew_raadstalk.sh`
-
-## Use as widget
-
-```
-  <iframe src="http://localhost:3000/" height="482" width="337" frameborder="o" scrolling="no">
-    Raadstalk kan niet worden geladen. Bezoek <a href="http://raadstalk.nl">raadstalk.nl</a>
-  </iframe>
-```
+- `cd raadstalk`
+- `./renew.sh`
