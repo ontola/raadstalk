@@ -1,0 +1,4 @@
+RPUSH "raadstalk.2019-04" "omgevingswet"
+RPUSH "raadstalk.2019-04" "energietransitie"
+SET "raadstalk.2019-04.counts.omgevingswet" "123"
+SET "raadstalk.2019-04.counts.energietransitie" "110"

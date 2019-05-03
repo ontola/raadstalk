@@ -1,5 +1,6 @@
 version: '3.3'
 services:
+
   web:
     image: nginx:alpine
     ports:
@@ -11,26 +12,35 @@ services:
       - app
       - trends
       - phpredisadmin
+
   app:
     build: .
     ports:
      - "8080:8080"
+
   countall:
     build: .
     command: "node countAll.js"
+
   countlastmonth:
     build: .
     command: "node countLastMonth.js"
+
   redis:
     image: "redis:alpine"
     volumes:
       - redis-data:/data
+      - ./redis.conf:/usr/local/etc/redis/redis.conf
     ports:
       - '6379:6379'
+    command:
+      - /usr/local/etc/redis/redis.conf
+
   trends:
     build: trends
     depends_on:
       - redis
+
   phpredisadmin:
     image: erikdubbelboer/phpredisadmin:latest
     environment:
@@ -42,5 +52,6 @@ services:
       - redis
     ports:
       - '8888:80'
+
 volumes:
   redis-data:
