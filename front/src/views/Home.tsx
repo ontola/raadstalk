@@ -8,7 +8,7 @@ const Home: React.FunctionComponent = () => {
   return (
     <div>
       <Header>
-        <span style={{ fontSize: "80%" }}>Wat bespreekt de gemeenteraad?</span>
+        <span className="Header__slogan">Wat bespreekt de gemeenteraad?</span>
       </Header>
       <SearchBar/>
       <p>Met RaadsTalk zoekt u in raadsdocumenten van meer dan 110 gemeenten in Nederland.</p>

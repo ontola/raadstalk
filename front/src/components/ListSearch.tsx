@@ -50,7 +50,7 @@ export default class ListSearch extends Component<ListSearchProps> {
 
   public render() {
     if (this.props.items.length === 0) {
-      return (<p>Er zijn geen resultaten gevonden.</p>);
+      return (<p>'{this.props.searchTerm}' is niet gevonden.</p>);
     }
     return (
       <div className="ListSearch">

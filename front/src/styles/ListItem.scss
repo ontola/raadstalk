@@ -1,10 +1,14 @@
 @import 'shared';
 
+
+.ListSearch {
+  overflow-y: auto;
+  height: 100%;
+}
+
 .ListSearch ul {
   list-style-type: none;
   padding: 0;
-  height: 100%;
-  overflow-y: auto;
 }
 
 .ListItem {
