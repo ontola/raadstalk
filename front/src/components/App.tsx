@@ -1,25 +1,18 @@
 import React from "react";
 
-import { BrowserRouter, Link, Route } from "react-router-dom";
-import About from "../views/About";
-import Home from "../views/Home";
-import List from "../views/List";
-import Map from "../views/Map";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
+import Widget from "./Widget";
+import Example from "./Example";
 
 import "../styles/reset.scss";
 import "../styles/App.scss";
 
 const App: React.FunctionComponent = () => (
   <BrowserRouter>
-    <div id="main-content" className="boundingBox">
-      {/* Load the styling for the Leaflet map */}
-      <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.1/dist/leaflet.css" />
-      <Route exact path="/" component={Home} />
-      <Route path="/list/:query" component={List} />
-      <Route path="/map/:query" component={Map} />
-      <Route path="/about" component={About} />
-      <footer><Link to="/about">Over deze app</Link> | Gemaakt met Open Raadsinformatie</footer>
-    </div>
+    <Switch>
+      <Route exact path="/" component={Example} />
+      <Route path="/widget" component={Widget} />
+    </Switch>
   </BrowserRouter>
 );
 

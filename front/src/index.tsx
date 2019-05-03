@@ -4,7 +4,6 @@ import bugsnag from "@bugsnag/js";
 import bugsnagReact from "@bugsnag/plugin-react";
 
 import App from "./components/App";
-import "./styles/Index.scss";
 
 export const bugsnagClient = bugsnag({
   apiKey: "f211be19c66edc095b7cf397cfd73a57",
@@ -16,7 +15,7 @@ const ErrorBoundary = bugsnagClient.getPlugin("react");
 
 ReactDom.render(
   <ErrorBoundary>
-    <App />,
+    <App />
   </ErrorBoundary>,
   document.getElementById("root"),
 );

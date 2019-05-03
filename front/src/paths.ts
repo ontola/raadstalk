@@ -1,9 +1,9 @@
 const paths = {
-  home: "/",
+  home: "/widget/",
   /** Search for a string and see the municipalities with counts in a list*/
-  list: (query: string) => `/list/${query}`,
+  list: (query: string) => `/widget/list/${query}`,
   /** Search for a string and see the municipalities with counts in a map*/
-  map: (query: string) => `/map/${query}`,
+  map: (query: string) => `/widget/map/${query}`,
   /** Open OpenRaadsInformatie and search for a specific term */
   ORISearch: (query: string = "") => `http://zoek.openraadsinformatie.nl/#/search/${query}/`,
   contactMail: "mailto:info@vngrealisatie.nl?SUBJECT=RaadsTalk",

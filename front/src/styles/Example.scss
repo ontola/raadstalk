@@ -1,9 +1,18 @@
 @import url('https://fonts.googleapis.com/css?family=Montserrat:400,700');
 @import 'shared';
 
-.boundingBox {
+.Example {
+  background: #f0f0f0;
+  height: 100vh;
+}
+
+.Example__wrapper {
   box-sizing: border-box;
   width: 337px;
   height: 482px;
+  resize: both;
+  overflow: hidden;
   background: white;
+  padding: 10px;
+  margin: auto;
 }
