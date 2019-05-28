@@ -6,19 +6,33 @@ Check it out at [raadstalk.nl](http://raadstalk.nl)!
 
 ## Use as widget
 
+Add this iFrame to your webpage:
+
 ```
-  <iframe src="http://localhost:3000/" height="100%" width="100%" frameborder="o" scrolling="no">
+  <iframe src="http://raadstalk.nl/widget" height="100%" width="100%" frameborder="o" scrolling="no">
     Raadstalk kan niet worden geladen. Bezoek <a href="http://raadstalk.nl">raadstalk.nl</a>
   </iframe>
 ```
+
+Put it inside a wrapping element that constrains its width (about 250px) and height (about 400px).
+
+See [an example HTML file here](/example.html).
+
+## Managing Topics
+
+- Visit `http://admin.raadstalk` and login using your credentials.
+- Manage months and their items by adjusting `raadstalk.YYYY-MM`. You can remove items from the lists.
+- Create backups by exporting the redis data.
+- If something goes wrong, you can import the `.redisbackup` from this repository.
 
 ## Run using docker-compose
 
 - `docker-compose up --build web`
 - Visit `http://localhost` for the app.
-- Visit `http://admin.localhost` for managing the topics.
+- Visit `http://admin.localhost` for managing the topics. Log in using `admin` and `oritrends`
 - `docker-compose up trends` for running trends task to update the words
-- `docker-compose up countall` for updating trends task to update the counts
+- `docker-compose up countall` for updating trends task to update all counts
+- `docker-compose up countlastmonth` for updating trends task to update last months counts
 
 ## Local development
 
@@ -54,3 +68,8 @@ The front-end uses a simple express proxy server for local development (`setupPr
 - SSH into the server `ssh root@83.96.241.31`.
 - `cd raadstalk`
 - `./renew.sh`
+
+## Credits
+
+Funded by VNG Realisatie B.V.
+Development by Joep Meindertsma (@joepio) & Jurrian Trom (@jurrian) from Ontola / Argu B.V.
