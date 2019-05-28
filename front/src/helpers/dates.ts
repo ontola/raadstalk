@@ -13,7 +13,7 @@ export const subtractMonth = (date: YearMonth): YearMonth => {
 };
 
 export const startDate: YearMonth = {
-  year: 2017,
+  year: 2019,
   month: 1,
 };
 
