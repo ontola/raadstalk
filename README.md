@@ -64,6 +64,7 @@ The front-end uses a simple express proxy server for local development (`setupPr
 
 [![Build Status](https://semaphoreci.com/api/v1/projects/785f9851-b346-4ee3-b58c-5a4533498135/2531437/badge.svg)](https://semaphoreci.com/argu/raadstalk)
 
+- For HTTPS, use `./init-letsencrypt.sh`. You might need to run a seperate NGINX instance. Check [this tutorial](https://medium.com/@pentacent/nginx-and-lets-encrypt-with-docker-in-less-than-5-minutes-b4b8a60d3a71).
 - Semaphore automatically builds after each new commit on master.
 - SSH into the server `ssh root@raadstalk.nl`.
 - `cd raadstalk`
