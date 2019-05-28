@@ -83,7 +83,7 @@ const Municipality: React.FunctionComponent<MunicipalityProps> = ({
         <p><b>{count}</b> keer besproken</p>
         <a
           target="_blank"
-          href={paths.ORISearch(searchTerm)}
+          href={paths.ORISearch(searchTerm, label)}
         >
           <span>
             bekijk documenten

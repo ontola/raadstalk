@@ -31,7 +31,7 @@ const LinkComp = (props: LinkCompPropTypes) => {
   if (props.isMunicipality) {
     return (
       <a
-        href={paths.ORISearch(props.searchTerm)}
+        href={paths.ORISearch(props.searchTerm, props.label)}
         className="ListItem"
         target="_blank"
         title="Bekijk in Open Raadsinformatie"
