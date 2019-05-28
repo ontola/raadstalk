@@ -36,8 +36,8 @@ See [an example HTML file here](/example.html).
 
 ## Local development
 
-- If you want to work locally on some specific service (e.g. the server), set the service scale parameter to 0: `docker-compose up --build --scale app=0`
-- Setup the environment variables `mv template.env .env`
+- `docker-compose -f docker-compose.dev.yml up --build web`
+- Setup the environment variables `cd server && mv template.env .env`
 - Redis admin is available at `http://localhost:8888`
 
 ## Run front-end

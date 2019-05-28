@@ -1,0 +1,64 @@
+version: '3.3'
+services:
+
+  web:
+    image: nginx:alpine
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx.dev.conf:/etc/nginx/nginx.conf
+    depends_on:
+      - app
+      - redis
+      - phpredisadmin
+
+  app:
+    build: .
+    ports:
+     - "8080:8080"
+    depends_on:
+      - redis
+
+  countall:
+    build: .
+    command: "node countAll.js"
+    depends_on:
+      - redis
+      - app
+
+  countlastmonth:
+    build: .
+    command: "node countLastMonth.js"
+    depends_on:
+      - redis
+      - app
+
+  redis:
+    image: "redis:alpine"
+    volumes:
+      - redis-data:/data
+      - ./redis.conf:/usr/local/etc/redis/redis.conf
+    command:
+      - /usr/local/etc/redis/redis.conf
+    # Open port. Don't do this in production.
+    ports:
+     - "6379:6379"
+
+  trends:
+    build: trends
+    depends_on:
+      - redis
+
+  phpredisadmin:
+    image: erikdubbelboer/phpredisadmin:latest
+    environment:
+      - ADMIN_USER=admin
+      - ADMIN_PASS=oritrends
+      - REDIS_1_HOST=redis
+      - REDIS_1_PORT=6379
+    depends_on:
+      - redis
+
+volumes:
+  redis-data:
