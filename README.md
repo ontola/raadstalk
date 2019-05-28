@@ -65,7 +65,7 @@ The front-end uses a simple express proxy server for local development (`setupPr
 [![Build Status](https://semaphoreci.com/api/v1/projects/785f9851-b346-4ee3-b58c-5a4533498135/2531437/badge.svg)](https://semaphoreci.com/argu/raadstalk)
 
 - Semaphore automatically builds after each new commit on master.
-- SSH into the server `ssh root@83.96.241.31`.
+- SSH into the server `ssh root@raadstalk.nl`.
 - `cd raadstalk`
 - `./renew.sh`
 
