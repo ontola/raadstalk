@@ -1,6 +1,6 @@
 #!/bin/bash
 
-domains=(raadstalk.nl www.raadstalk.nl)
+domains=(raadstalk.nl admin.raadstalk.nl www.raadstalk.nl)
 rsa_key_size=4096
 data_path="./data/certbot"
 email="joep@argu.co"
