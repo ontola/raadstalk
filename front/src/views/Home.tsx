@@ -6,7 +6,7 @@ import PopularContainer from "../containers/PopularContainer";
 
 const Home: React.FunctionComponent = () => {
   return (
-    <div>
+    <div className="Wrapper">
       <Header>
         <span className="Header__slogan">Wat bespreekt de gemeenteraad?</span>
       </Header>
