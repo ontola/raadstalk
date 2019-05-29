@@ -117,6 +117,9 @@ def es_search_month():
                 if field not in valid_fields:
                     continue
 
+                if isinstance(value, list):
+                    value = " ".join(value)
+
                 value = value.replace('\n', ' ').replace('\r', ' ')
 
                 if len(value) > 400:
@@ -162,6 +165,9 @@ def es_search_municipality():
             for field, value in hit['_source'].items():
                 if field not in valid_fields:
                     continue
+
+                if isinstance(value, list):
+                    value = " ".join(value)
 
                 if len(value) > 400:
                     i += 1
