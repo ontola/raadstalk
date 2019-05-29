@@ -28,7 +28,7 @@ class WordCounter {
   private getCount(word: string): Promise<number> {
     return nodeFetch(oriURL, { method: "POST", body: JSON.stringify(this.query(word)) })
       .then(response => response.json())
-      .then(json => json.hits.total)
+      .then(json => json.hits.total.value)
       .catch((e) => {
         console.error(`Can't getCount for ${word}`, e);
         return -1;
