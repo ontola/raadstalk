@@ -67,7 +67,13 @@ export default class ListItem extends Component<PropTypes> {
           {this.props.hitCount}
           <FontAwesomeIcon icon={faFileAlt} />
         </span>
-        <div className="ListItem-bar" style={{ width: `${this.props.widthPercent}%` }}>&nbsp;</div>
+        {(this.props.widthPercent < 100 && this.props.widthPercent > 0) &&
+          <div
+            className="ListItem-bar"
+            style={{ width: `${this.props.widthPercent}%` }}>
+            &nbsp;
+          </div>
+        }
       </LinkComp>
     );
   }
