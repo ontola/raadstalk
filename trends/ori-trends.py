@@ -209,7 +209,7 @@ def weighwords(amount=20):
             print("{:<40}{:.4f}".format(term, np.exp(p)))
 
         r.delete(name)
-        r.rpush(name, *[term for term, _ in top_terms])
+        r.rpush('raadstalk.%s' % name, *[term for term, _ in top_terms])
         print
         print
 
