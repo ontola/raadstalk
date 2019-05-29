@@ -6,7 +6,7 @@ import PopularContainer from "../containers/PopularContainer";
 
 const Home: React.FunctionComponent = () => {
   return (
-    <div className="Wrapper">
+    <React.Fragment>
       <Header>
         <span className="Header__slogan">Wat bespreekt de gemeenteraad?</span>
       </Header>
@@ -14,7 +14,7 @@ const Home: React.FunctionComponent = () => {
       <p>Met RaadsTalk zoekt u in raadsdocumenten van meer dan 110 gemeenten in Nederland.</p>
       <b>Meest besproken onderwerpen:</b>
       <PopularContainer />
-    </div>
+    </React.Fragment>
   );
 };
 

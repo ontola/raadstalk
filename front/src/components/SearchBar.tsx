@@ -22,12 +22,13 @@ const inputStyle = {
     outline: "none",
   },
   boxSizing: "border-box" as "border-box",
-  paddingTop: "4px",
-  paddingBottom: "4px",
-  paddingLeft: "10px",
+  paddingTop: ".3rem",
+  paddingBottom: ".3rem",
+  paddingLeft: ".7rem",
   position: "relative" as "relative",
   width: "100%",
-  height: "26px",
+  fontSize: ".9rem",
+  height: "2.2rem",
 };
 
 const wrapperStyle = {

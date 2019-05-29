@@ -90,7 +90,7 @@ const Municipality: React.FunctionComponent<MunicipalityProps> = ({
             <FontAwesomeIcon icon={faExternalLinkAlt}
               style={{
                 position: "relative",
-                marginLeft: "5px",
+                marginLeft: ".3rem",
               }}
             />
           </span>

@@ -5,10 +5,10 @@
   color: $g1;
   align-self: center;
   position: absolute;
-  right: 10px;
+  right: .7rem;
   background: none;
   border: none;
-  height: 26px;
+  height: 2rem;
 
   &:hover {
     color: $g4;
@@ -17,5 +17,5 @@
 }
 
 .SearchBar__reset-icon {
-  right: 30px;
+  right: 2rem;
 }

@@ -2,7 +2,7 @@
 
 body {
   font-family: 'Montserrat', sans-serif;
-  font-size: 12px;
+  font-size: .9rem;
   margin: 0;
 }
 
@@ -11,13 +11,7 @@ input {
 }
 
 .DateLabel {
-  width: 45px;
+  width: 3.3rem;
   display: inline-block;
   text-align: center;
-}
-
-.Wrapper {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
 }

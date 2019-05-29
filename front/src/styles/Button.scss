@@ -4,17 +4,17 @@
   color: $blue;
   text-decoration: none;
   font-weight: bold;
-  margin-left: 10px;
+  margin-left: .7rem;
   align-items: center;
   display: flex;
 
   span {
-    padding: 5px;
+    padding:.4rem;
   }
 
   &__date {
     color: $blue;
-    padding: 4px;
+    padding: .3rem;
 
     &:hover {
       color: $blue-dark;

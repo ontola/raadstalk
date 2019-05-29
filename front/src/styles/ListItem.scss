@@ -4,11 +4,15 @@
 .ListSearch {
   overflow-y: auto;
   height: 100%;
+  margin-bottom: 1.6rem;
 }
 
 .ListSearch ul {
   list-style-type: none;
   padding: 0;
+  // height: 100%;
+  overflow: auto;
+  margin: 0;
 }
 
 .ListItem {
@@ -16,12 +20,16 @@
   display: block;
   text-decoration: none;
   position: relative;
-  margin-bottom: 4px;
+  margin-bottom: .3rem;
 
   &__external {
     color: $g1;
     display: none;
-    margin-left: 5px;
+    margin-left:.4rem;
+}
+
+  &:hover .ListItem-bar {
+    background-color: $blue;
   }
 
   &:hover &__external {
@@ -31,7 +39,7 @@
 
 .ListItem-bar {
   background-color: $blue-light;
-  height: 4px;
+  height: .3rem;
 }
 
 .ListItem-hits {
@@ -40,6 +48,6 @@
   right: 0;
 
   svg {
-    margin-left: 5px;
+    margin-left:.4rem;
   }
 }

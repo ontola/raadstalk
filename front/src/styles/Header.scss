@@ -1,14 +1,16 @@
 @import 'shared';
 
+$header-height: 3rem;
+
 .Header {
-  display: flex;
-  height: 30px;
+  display: block;
+  height: $header-height;
 
   &--children {
-    align-items: center;
+    float: right;
     display: flex;
-    flex: 1;
-    justify-content: flex-end;
+    align-items: center;
+    height: $header-height;
   }
 
   &__slogan {
@@ -17,11 +19,11 @@
 }
 
 .Logo {
-  margin-right: 5px;
-  font-size: 15px;
+  margin-right:.4rem;
+  font-size: 1.3rem;
   text-decoration: none;
-  align-items: center;
-  display: flex;
+  display: inline-block;
+  line-height: $header-height;
 
   span {
     font-weight: bold;
@@ -36,7 +38,7 @@
   }
 }
 
-@media only screen and (max-width: 255px) {
+@media only screen and (max-width: 320px) {
   .Header__slogan {
     display: none;
   }
