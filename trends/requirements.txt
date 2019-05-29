@@ -3,3 +3,4 @@ elasticsearch>=7.0.0,<8.0.0
 unidecode==1.0.23
 weighwords==0.2
 certifi
+python-dateutil==2.7.3
