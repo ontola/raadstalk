@@ -1,17 +1,17 @@
+import os
+import re
+from datetime import datetime
+from glob import glob
+from string import punctuation
+
+import certifi
+import numpy as np
+from dateutil.relativedelta import relativedelta
 from elasticsearch import Elasticsearch
 from elasticsearch.helpers import scan
-from collections import defaultdict
-from weighwords import ParsimoniousLM
-import numpy as np
-import itertools
-from glob import glob
-from unidecode import unidecode
-import re
-from string import punctuation
 from redis import Redis
-import os
-import certifi
-
+from unidecode import unidecode
+from weighwords import ParsimoniousLM
 
 es = Elasticsearch(
     hosts=os.environ['ES_HOST'],
@@ -75,34 +75,30 @@ def es_search_month():
 
     valid_fields = ['text']
 
-    months = [
-        (1, 2018),
-        (2, 2018),
-        (3, 2018),
-        (4, 2018),
-        (5, 2018),
-        (6, 2018),
-        (7, 2018),
-        (8, 2018),
-        (9, 2018),
-        (10, 2018),
-        (11, 2018),
-        (1, 2019),
-    ]
-
     if not os.path.exists('maand-dumps'):
         os.mkdir('maand-dumps')
 
-    for month, year in months:
-        dump_file = open('maand-dumps/{}-{:02d}.dump'.format(year, month), 'w')
+    today = datetime.today()
+
+    # Change this value to adjust how many months back should be processed
+    months = 24
+
+    end_date = datetime(today.year, today.month, 1) - relativedelta(days=1)
+    current_date = end_date
+
+    while current_date > end_date - relativedelta(months=months):
+        dump_file = open('maand-dumps/{}-{:02d}.dump'.format(current_date.year, current_date.month), 'w')
+
+        last_date = current_date + relativedelta(months=1)
+        last_date = datetime(last_date.year, last_date.month, 1) - relativedelta(days=1)
 
         query = {
             "query": {
                 # "match_all": {}
                 "range": {
                     "date_modified": {
-                        "gte": "01/{}/{}".format(month, year),
-                        "lte": "01/{}/{}".format(month + 1, year),
+                        "gte": "01/{}/{}".format(current_date.month, current_date.year),
+                        "lte": "{}/{}/{}".format(last_date.day, last_date.month, last_date.year),
                         "format": "dd/MM/yyyy"
                     }
                 }
@@ -126,6 +122,8 @@ def es_search_month():
                     dump_file.write(' '.join(clean_corpus(value.encode('utf-8'))) + '\n')
 
         dump_file.close()
+
+        current_date = current_date - relativedelta(months=1)
 
 
 def es_search_municipality():
