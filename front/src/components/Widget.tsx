@@ -1,13 +1,12 @@
 import React from "react";
 
-import { Link, Route, Switch } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
 import About from "../views/About";
 import Home from "../views/Home";
 import List from "../views/List";
 import Map from "../views/Map";
 
 import "../styles/Widget.scss";
-import paths from "../paths";
 
 const App: React.FunctionComponent = () => (
   <div className="Widget">
@@ -19,9 +18,6 @@ const App: React.FunctionComponent = () => (
     </Switch>
     {/* Load the styling for the Leaflet map */}
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.1/dist/leaflet.css" />
-    <footer>
-      <Link to={paths.about}>Over deze app</Link> | Gemaakt met Open Raadsinformatie
-    </footer>
   </div>
 );
 

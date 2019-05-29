@@ -30,9 +30,9 @@ See [an example HTML file here](/example.html).
 - `docker-compose up --build web`
 - Visit `http://localhost` for the app.
 - Visit `http://admin.localhost` for managing the topics. Log in using `admin` and `oritrends`
-- `docker-compose up trends` for running trends task to update the words
-- `docker-compose up countall` for updating trends task to update all counts
-- `docker-compose up countlastmonth` for updating trends task to update last months counts
+- `docker-compose up --build trends` for running trends task to update the words
+- `docker-compose up --build countall` for updating trends task to update all counts
+- `docker-compose up --build countlastmonth` for updating trends task to update last months counts
 
 ## Local development
 
