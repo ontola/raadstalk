@@ -83,7 +83,7 @@ def es_search_month():
     # Change this value to adjust how many months back should be processed
     months = 24
 
-    end_date = datetime(today.year, today.month, 1) - relativedelta(days=1)
+    end_date = datetime(today.year, today.month - 1, 1)
     current_date = end_date
 
     while current_date > end_date - relativedelta(months=months):
@@ -97,17 +97,15 @@ def es_search_month():
                 # "match_all": {}
                 "range": {
                     "date_modified": {
-                        "gte": "01/{}/{}".format(current_date.month, current_date.year),
-                        "lte": "{}/{}/{}".format(last_date.day, last_date.month, last_date.year),
+                        "gte": current_date.strftime("%d/%m/%Y"),
+                        "lte": last_date.strftime("%d/%m/%Y"),
                         "format": "dd/MM/yyyy"
                     }
                 }
             }
         }
 
-
         hits = scan(es, index="ori_*", query=query)
-
         for hit in hits:
             for field, value in hit['_source'].items():
                 if field not in valid_fields:
