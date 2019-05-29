@@ -46,29 +46,32 @@ const PopularContainer: React.SFC<any> = (props) => {
 
   const isFirstMonth = JSON.stringify(date) === JSON.stringify(startDate);
   const isLastMonth = JSON.stringify(date) === JSON.stringify(getPreviousMonth());
+  const showDate = false;
 
   return (
     <React.Fragment>
-      <div>
-        <button
-          className="Button__date"
-          onClick={downDate}
-          disabled={isFirstMonth}
-          title="Vorige maand"
-        >
-          <FontAwesomeIcon icon={faArrowLeft} />
-        </button>
-        <span className="DateLabel">{date.year}-{date.month}</span>
-        <button
-          className="Button__date"
-          onClick={upDate}
-          disabled={isLastMonth}
-          title={!isLastMonth ? "Volgende maand" :
-            "De huidige maand is vanaf begin de volgende maand beschikbaar"}
-        >
-          <FontAwesomeIcon icon={faArrowRight} />
-        </button>
-      </div>
+      {showDate &&
+        <div>
+          <button
+            className="Button__date"
+            onClick={downDate}
+            disabled={isFirstMonth}
+            title="Vorige maand"
+          >
+            <FontAwesomeIcon icon={faArrowLeft} />
+          </button>
+          <span className="DateLabel">{date.year}-{date.month}</span>
+          <button
+            className="Button__date"
+            onClick={upDate}
+            disabled={isLastMonth}
+            title={!isLastMonth ? "Volgende maand" :
+              "De huidige maand is vanaf begin de volgende maand beschikbaar"}
+          >
+            <FontAwesomeIcon icon={faArrowRight} />
+          </button>
+        </div>
+      }
       {loading && <Spinner />}
       {!loading && <ListSearch items={items} />}
     </React.Fragment>
