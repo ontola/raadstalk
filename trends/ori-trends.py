@@ -109,7 +109,8 @@ def es_search_month():
             }
         }
 
-        hits = scan(es, index="*", query=query)
+
+        hits = scan(es, index="ori_*", query=query)
 
         for hit in hits:
             for field, value in hit['_source'].items():
@@ -134,7 +135,7 @@ def es_search_municipality():
         'ori_usage_logs',
     ]
 
-    indices = es.indices.get('*')
+    indices = es.indices.get('ori_*')
 
     if not os.path.exists('gemeente-dumps'):
         os.mkdir('gemeente-dumps')
