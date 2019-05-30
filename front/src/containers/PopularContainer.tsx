@@ -46,7 +46,7 @@ const PopularContainer: React.SFC<any> = (props) => {
 
   const isFirstMonth = JSON.stringify(date) === JSON.stringify(startDate);
   const isLastMonth = JSON.stringify(date) === JSON.stringify(getPreviousMonth());
-  const showDate = true;
+  const showDate = false;
 
   return (
     <React.Fragment>
