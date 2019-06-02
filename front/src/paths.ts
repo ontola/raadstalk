@@ -11,6 +11,8 @@ const paths = {
 
     const transformedString = gemeente.toLowerCase().split(" ").join("_");
     url.searchParams.append("gemeenten", `["ori_${transformedString}*"]`);
+    // TODO: remove this
+    url.searchParams.append("datums", "[\"2019-04-01\",\"2019-05-30\"]");
 
     return url.href;
   },

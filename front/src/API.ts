@@ -4,16 +4,32 @@ import { bugsnagClient } from "./index";
 export function getSearchResults(query: string): Promise<SearchResultsType> {
   const data = {
     query: {
-      simple_query_string : {
-        query,
-        fields: [
-          "title",
-          "label",
-          "name",
-          "text",
-          "description",
+      bool: {
+        must: [
+          [
+            {
+              simple_query_string: {
+                query,
+                fields: [
+                  "text",
+                  "title",
+                  "description",
+                  "name",
+                ],
+                default_operator: "or",
+              },
+            },
+          ],
+          // TODO: Make this flexible when all data is loaded
+          {
+            range: {
+              date_modified: {
+                gte: "2019-04-01",
+                lte: "2019-04-30",
+              },
+            },
+          },
         ],
-        default_operator: "and",
       },
     },
     aggs: {
