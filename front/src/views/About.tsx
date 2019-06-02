@@ -17,10 +17,12 @@ export default class About extends Component {
         <p>De data die je ziet zijn afkomstig uit <a href={paths.openRaadsInformatie}>
         Open Raadsinformatie</a>. Onderhand delen al meer dan 100 gemeenten hun raadsinformatie
         (vergaderingen, agendapunten, documenten) via dit systeem.</p>
-        <p>Staat jouw gemeente hier nog niet tussen? Neem dan met ons {" "}
+        <p>Wil je deze app ook op jouw website hebben,
+          of wil je dat jouw gemeentedata hierbij komt? Neem dan
+          {/* Staat jouw gemeente hier nog niet tussen? Neem dan met ons {" "} */}
           <a href={paths.contactMail}>contact</a> op.</p>
-        <p>Wil je deze app ook op jouw website hebben? Bekijk dan de documentatie op {" "}
-          <a href={paths.github}>Github</a>. Je kunt hier ook de broncode bekijken.</p>
+        {/* <p>Bekijk dan de documentatie op {" "}</p> */}
+        {/* <a href={paths.github}>Github</a>. Je kunt hier ook de broncode bekijken.*/}
       </div>
     );
   }
