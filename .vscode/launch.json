@@ -7,13 +7,17 @@
     {
       "type": "node",
       "request": "launch",
-      "name": "Debug TypeScript in Node.js",
+      "name": "Debug server",
       "preLaunchTask": "typescript",
-      "program": "${workspaceFolder}/src/index.ts",
-      "cwd": "${workspaceFolder}",
+      "program": "${workspaceFolder}/server/src/index.ts",
+      "cwd": "${workspaceFolder}/server",
       "protocol": "inspector",
+      "env": {
+        "WWW_DIR":"${workspaceFolder}/front/build/",
+        "PORT":"8081",
+      },
       "outFiles": [
-        "${workspaceFolder}/dist/**/*.js"
+        "${workspaceFolder}/server/dist/**/*.js"
       ]
     }
   ]
