@@ -5,12 +5,10 @@ import express, { Response, Request } from "express";
 import httpProxyMiddleware from "http-proxy-middleware";
 import morgan from "morgan";
 
-import { oriURL } from "./config";
+import { esURL, port, staticDir } from "./config";
 import WordUpdater from "./WordUpdater";
 import { PopularTerm } from "../../types";
 
-const staticDir = process.env.WWW_DIR || "/usr/src/app/www/";
-const defaultPort = 8080;
 const app = express();
 
 app.use(cors());
@@ -18,7 +16,7 @@ app.use(morgan("combined"));
 
 // Proxy search requests, remove `/search` from URL
 app.all("/search", httpProxyMiddleware({
-  target: oriURL,
+  target: esURL,
   changeOrigin: true,
   pathRewrite: { "^/search": "" },
   logLevel: process.env.NODE_ENV === "production" ? "info" :  "debug",
@@ -43,4 +41,4 @@ app.get("*", (req: Request, res: Response) => {
   res.sendFile(path.join(staticDir, "index.html"));
 });
 
-app.listen(process.env.PORT || defaultPort);
+app.listen(port);

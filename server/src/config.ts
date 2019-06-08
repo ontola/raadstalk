@@ -6,7 +6,11 @@ if (envs.error) {
   console.log("Error when loading .env:", envs.error);
 }
 
-export const oriURL = process.env.ORI_URL ||
+// All defaults should be production values
+
+export const esURL = process.env.ES_URL ||
   "https://api.openraadsinformatie.nl/v1/elastic/ori_*/_search/";
+export const port = process.env.APP_PORT || 8080;
 export const redisHost = process.env.REDIS_HOST || "redis";
 export const redisPort = Number(process.env.REDIS_PORT) || 6379;
+export const staticDir = process.env.WWW_DIR || "/usr/src/app/www/";

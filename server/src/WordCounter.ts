@@ -1,6 +1,6 @@
 import nodeFetch from "node-fetch";
 
-import { oriURL } from "./config";
+import { esURL } from "./config";
 import { PopularTerm } from "../../types";
 import { errorHandler } from "./error";
 
@@ -26,7 +26,7 @@ class WordCounter {
   }
 
   private getCount(word: string): Promise<number> {
-    return nodeFetch(oriURL, { method: "POST", body: JSON.stringify(this.query(word)) })
+    return nodeFetch(esURL, { method: "POST", body: JSON.stringify(this.query(word)) })
       .then(response => response.json())
       .then(json => json.hits.total.value)
       .catch((e) => {
