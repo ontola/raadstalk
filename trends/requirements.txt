@@ -1,6 +1,6 @@
 redis==3.2.1
 elasticsearch>=7.0.0,<8.0.0
 unidecode==1.0.23
-weighwords==0.2
+-e git+https://github.com/aolieman/weighwords@swlm#egg=weighwords
 certifi
 python-dateutil==2.7.3

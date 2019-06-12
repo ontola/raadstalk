@@ -3,6 +3,8 @@ import re
 from datetime import datetime
 from glob import glob
 from string import punctuation
+from itertools import zip_longest
+import math
 
 import certifi
 import numpy as np
@@ -11,15 +13,17 @@ from elasticsearch import Elasticsearch
 from elasticsearch.helpers import scan
 from redis import Redis
 from unidecode import unidecode
-from weighwords import ParsimoniousLM
+from weighwords import ParsimoniousLM, SignificantWordsLM
 
 es = Elasticsearch(
     hosts=os.environ['ES_HOST'],
-    url_prefix=os.environ['ES_PATH'],
-    port=os.environ['ES_PORT'],
-    use_ssl=True if os.environ['ES_PORT'] == '443' else False,
+    url_prefix=os.environ.get('ES_PATH', ''),
+    port=os.environ.get('ES_PORT', 9200),
+    use_ssl=True if os.environ.get('ES_PORT') == '443' else False,
     ca_certs=certifi.where(),
 )
+
+print('Elasticsearch cluster:', es.info())
 
 r = Redis(
     host=os.environ.get('REDIS_HOST', 'localhost'),
@@ -27,7 +31,7 @@ r = Redis(
 )
 
 # Test for redis connection and show databases
-print 'Redis databases:', r.info('keyspace')
+print('Redis databases:', r.info('keyspace'))
 
 
 def clean_corpus(corpus):
@@ -43,7 +47,7 @@ def clean_corpus(corpus):
             continue
 
         # strip_chars = '(){}[]<>\'\"`.,?!:;_-'
-        word = unidecode(word.decode('utf-8'))  # Convert smart quotes to normal
+        word = unidecode(word)  # Convert smart quotes to normal
         word = word.strip(punctuation)
         word = word.strip(punctuation)
         word = word.lower()
@@ -71,7 +75,7 @@ def clean_corpus(corpus):
 
 
 def es_search_month():
-    print 'Getting ES results per month'
+    print('Getting ES results per month')
 
     valid_fields = ['text']
 
@@ -117,7 +121,7 @@ def es_search_month():
                 value = value.replace('\n', ' ').replace('\r', ' ')
 
                 if len(value) > 400:
-                    dump_file.write(' '.join(clean_corpus(value.encode('utf-8'))) + '\n')
+                    dump_file.write(' '.join(clean_corpus(value)) + '\n')
 
         dump_file.close()
 
@@ -125,13 +129,13 @@ def es_search_month():
 
 
 def es_search_municipality():
-    print 'Getting ES results per municipality'
+    print('Getting ES results per municipality')
 
     valid_fields = ['text']
 
     exclude_indices = [
-        'ori_resolver',
-        'ori_usage_logs',
+        'resolver',
+        'usage_logs',
     ]
 
     indices = es.indices.get('ori_*')
@@ -167,13 +171,19 @@ def es_search_municipality():
 
                 if len(value) > 400:
                     i += 1
-                    dump_file.write(' '.join(clean_corpus(value.encode('utf-8'))) + '\n')
+                    dump_file.write(' '.join(clean_corpus(value)) + '\n')
 
         dump_file.close()
 
 
+def grouper(iterable, n, filler=None):
+    """Source: https://docs.python.org/3/library/itertools.html#itertools-recipes"""
+    args = [iter(iterable)] * n
+    return zip_longest(*args, fillvalue=filler)
+
+
 def weighwords(amount=20):
-    print 'Processing parsimonious weighwords algorithm'
+    print('Processing parsimonious weighwords algorithm')
 
     def iter_dump(file_path):
         with open(file_path, 'r') as f:
@@ -193,9 +203,10 @@ def weighwords(amount=20):
                 yield date, dump_data
 
     model = ParsimoniousLM([data for _, data in read_files()], w=.01)
+    swlm = SignificantWordsLM([data for _, data in read_files()], lambdas=(.9, .01, .09))
 
-    print
-    print
+    print()
+    print()
 
     for name, terms in read_files():
         print("######  {}  ######".format(name))
@@ -204,20 +215,35 @@ def weighwords(amount=20):
             continue
 
         top_terms = model.top(amount, terms)
+        swlm_top = swlm.group_top(
+            amount,
+            grouper(terms, math.ceil(len(terms) / 10)),
+            fix_lambdas=True,
+        )
 
-        for term, p in top_terms:
-            print("{:<40}{:.4f}".format(term, np.exp(p)))
+        # for term, p in top_terms:
+        #     print("{:<40}{:.4f}".format(term, np.exp(p)))
+
+        # print()
+        #
+        # print('############')
+
+        # for term, p in swlm_top:
+        #     print("{:<40}{:.4f}".format(term, p))
+
+        for (plm_t, plm_p), (swlm_t, swlm_p) in zip(top_terms, swlm_top):
+            print(f"{plm_t:<40} {np.exp(plm_p):<12.4f} {swlm_t:<40} {swlm_p:.4f}")
 
         r.delete(name)
         r.rpush('raadstalk.%s' % name, *[term for term, _ in top_terms])
-        print
-        print
+        print()
+        print()
 
 
 # Main
 if __name__ == '__main__':
-    print 'Start processing'
+    print('Start processing')
     es_search_month()
     es_search_municipality()
     weighwords()
-    print 'Done processing'
+    print('Done processing')
