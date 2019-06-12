@@ -4,6 +4,7 @@ services:
   web:
     image: nginx:alpine
     ports:
+      - "8000:80"
       - "80:80"
       - "443:443"
     volumes:
@@ -15,8 +16,8 @@ services:
 
   app:
     build: .
-    ports:
-     - "8080:8080"
+    # ports:
+    #  - "8080:8080"
     depends_on:
       - redis
 
@@ -49,6 +50,10 @@ services:
     build: trends
     depends_on:
       - redis
+    environment:
+      - ES_HOST=34.90.191.24
+      - ES_PORT=9200
+      - ES_PATH=
 
   phpredisadmin:
     image: erikdubbelboer/phpredisadmin:latest

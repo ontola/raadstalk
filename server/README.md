@@ -2,5 +2,6 @@
 
 ## Debugging counts
 
-`yarn global add ts-node-dev`
-`ts-node-dev ./src/countLastMonth.ts`
+Install ts-node-dev `yarn global add ts-node-dev`
+
+Run individual processes `ts-node-dev ./src/countLastMonth.ts`
