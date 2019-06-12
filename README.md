@@ -69,7 +69,8 @@ The front-end uses a simple express proxy server for local development (`setupPr
 - Semaphore automatically builds after each new commit on master.
 - SSH into the server `ssh root@raadstalk.nl`.
 - `cd raadstalk`
-- `./renew.sh`
+- Download the latest version and restart docker-compose `./renew.sh`
+- Don't forget to periodically run trends `crontab ./cronjob`
 
 ## Credits
 

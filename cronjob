@@ -1,0 +1,2 @@
+# This runs a cron job that runs the Trends app every first day of the month
+0 0 1 * * docker-compose up --build trends && docker-compose up --build countlastmonth
