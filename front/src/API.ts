@@ -21,14 +21,14 @@ export function getSearchResults(query: string): Promise<SearchResultsType> {
             },
           ],
           // TODO: Make this flexible when all data is loaded
-          {
-            range: {
-              date_modified: {
-                gte: "2019-04-01",
-                lte: "2019-04-30",
-              },
-            },
-          },
+          // {
+          //   range: {
+          //     date_modified: {
+          //       gte: "2019-04-01",
+          //       lte: "2019-04-30",
+          //     },
+          //   },
+          // },
         ],
       },
     },
