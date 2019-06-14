@@ -17,6 +17,8 @@ export default class About extends Component {
         <p>De data die je ziet zijn afkomstig uit <a href={paths.openRaadsInformatie}>
         Open Raadsinformatie</a>. Onderhand delen al meer dan 100 gemeenten hun raadsinformatie
         (vergaderingen, agendapunten, documenten) via dit systeem.</p>
+        <p>De analyse van de woorden worden gedaan met de <a href={paths.wayWard}>WayWard library.
+        </a></p>
         <p>Wil je deze app ook op jouw website hebben,
           of wil je dat jouw gemeentedata hierbij komt? Neem dan
           {/* Staat jouw gemeente hier nog niet tussen? Neem dan met ons {" "} */}

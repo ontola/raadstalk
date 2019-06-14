@@ -20,6 +20,7 @@ const paths = {
   // TODO: make repo public.
   github: "https://github.com",
   about: "/widget/about",
+  wayWard: "https://github.com/aolieman/wayward",
   openRaadsInformatie: "https://openraadsinformatie.nl",
 };
 
