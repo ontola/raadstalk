@@ -34,7 +34,7 @@ const LinkComp = (props: LinkCompPropTypes) => {
         href={paths.ORISearch(props.searchTerm, props.label)}
         className="ListItem"
         target="_blank"
-        title="Bekijk in Open Raadsinformatie"
+        title="Bekijk documenten in Open Raadsinformatie"
       >
         <span>{props.label}</span>
         <FontAwesomeIcon className={"ListItem__external"} icon={faExternalLinkAlt} />
@@ -46,7 +46,7 @@ const LinkComp = (props: LinkCompPropTypes) => {
     <Link
       to={paths.list(props.label)}
       className="ListItem"
-      title={`Bekijk in welke ${props.hitCount} documenten '${props.label}' werd besproken`}
+      title={`Bekijk in welke gemeenten '${props.label}' werd besproken`}
     >
       <span>{props.label}</span>
       {props.children}
