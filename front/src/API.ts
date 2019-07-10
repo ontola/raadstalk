@@ -36,11 +36,13 @@ export function getSearchResults(query: string): Promise<SearchResultsType> {
       municipalities: {
         terms: {
           field : "_index",
+          // The amount of municipalities in the ListSearch component
+          size : 100,
         },
       },
     },
     from: 0,
-    size: 100,
+    size: 10,
   };
 
   return fetch("/search", {
