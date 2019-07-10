@@ -40,7 +40,7 @@ export function getSearchResults(query: string): Promise<SearchResultsType> {
       },
     },
     from: 0,
-    size: 10,
+    size: 100,
   };
 
   return fetch("/search", {
