@@ -27,7 +27,7 @@ See [an example HTML file here](/example.html).
 
 ## Run using docker-compose
 
-- `docker-compose up --build web`
+- `docker-compose up --build nginx`
 - Visit `http://localhost` for the app.
 - Visit `http://admin.localhost` for managing the topics. Log in using `admin` and `oritrends`
 - `docker-compose up --build trends` for running trends task to update the words
@@ -36,7 +36,7 @@ See [an example HTML file here](/example.html).
 
 ## Local development
 
-- `docker-compose -f docker-compose.dev.yml up --build web`
+- `docker-compose -f docker-compose.dev.yml up --build nginx`
 - Setup the environment variables `cd server && mv template.env .env`
 - Redis admin is available at `http://localhost:8888`
 - If you have VSCode, you can use the `Debug server` configuration
@@ -61,11 +61,11 @@ The front-end uses a simple express proxy server for local development (`setupPr
 - Run it `docker run -it -p 8080:8080 -e PORT=8080 raadstalk:latest`
 - Visit `http://localhost:8080`
 
-## Deployment
+## Deployment & devops
 
 [![Build Status](https://semaphoreci.com/api/v1/projects/785f9851-b346-4ee3-b58c-5a4533498135/2531437/badge.svg)](https://semaphoreci.com/argu/raadstalk)
 
-- For HTTPS, use `./init-letsencrypt.sh`. You might need to run a seperate NGINX instance. Check [this tutorial](https://medium.com/@pentacent/nginx-and-lets-encrypt-with-docker-in-less-than-5-minutes-b4b8a60d3a71).
+- For HTTPS, use `./init-letsencrypt.sh`. You might need to run a seperate NGINX instance. Check [this tutorial](https://medium.com/@pentacent/nginx-and-lets-encrypt-with-docker-in-less-than-5-minutes-b4b8a60d3a71). Make sure
 - Semaphore automatically builds after each new commit on master.
 - SSH into the server `ssh root@raadstalk.nl`.
 - `cd raadstalk`
