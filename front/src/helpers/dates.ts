@@ -17,6 +17,14 @@ export const startDate: YearMonth = {
   month: 1,
 };
 
+export const endDate = (): YearMonth => {
+  // return getPreviousMonth();
+  return {
+    year: 2019,
+    month: 6,
+  };
+};
+
 export const getPreviousMonth = () => {
   const now = new Date();
   now.setDate(1);

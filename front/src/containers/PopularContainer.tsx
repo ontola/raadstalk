@@ -5,7 +5,7 @@ import Spinner from "../components/Spinner";
 import ListSearch from "../components/ListSearch";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight, faArrowLeft } from "@fortawesome/free-solid-svg-icons";
-import { getPreviousMonth, addMonth, subtractMonth, startDate } from "../helpers/dates";
+import { addMonth, subtractMonth, startDate, endDate } from "../helpers/dates";
 import { bugsnagClient } from "../index";
 
 /** Show the list of municipalities + hit counts for a single query */
@@ -13,7 +13,7 @@ const PopularContainer: React.SFC<any> = (props) => {
 
   const [items, setItems] = useState<PopularTerm[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
-  const [date, setDate] = useState<YearMonth>(getPreviousMonth());
+  const [date, setDate] = useState<YearMonth>(endDate);
   const [error, setError] = useState<Error | null>(null);
 
   useEffect(
@@ -45,7 +45,7 @@ const PopularContainer: React.SFC<any> = (props) => {
   }
 
   const isFirstMonth = JSON.stringify(date) === JSON.stringify(startDate);
-  const isLastMonth = JSON.stringify(date) === JSON.stringify(getPreviousMonth());
+  const isLastMonth = JSON.stringify(date) === JSON.stringify(endDate);
   const showDate = true;
 
   return (

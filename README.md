@@ -71,6 +71,7 @@ The front-end uses a simple express proxy server for local development (`setupPr
 - `cd raadstalk`
 - Download the latest version and restart docker-compose `./renew.sh`
 - Don't forget to periodically run trends `crontab ./cronjob`
+- Set your start and end date
 
 ## Credits
 
