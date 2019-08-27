@@ -36,7 +36,7 @@ See [an example HTML file here](/example.html).
 
 ## Local development
 
-- `docker-compose -f docker-compose.dev.yml up --build nginx`
+- `./dev.sh`
 - Setup the environment variables `cd server && mv template.env .env`
 - Redis admin is available at `http://localhost:8888`
 - If you have VSCode, you can use the `Debug server` configuration
