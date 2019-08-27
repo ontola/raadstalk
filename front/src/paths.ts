@@ -10,7 +10,7 @@ const paths = {
     url.searchParams.append("zoekterm", `"${query}"`);
 
     const transformedString = gemeente.toLowerCase().split(" ").join("_");
-    url.searchParams.append("gemeenten", `["ori_${transformedString}*"]`);
+    url.searchParams.append("organisaties", `["ori_${transformedString}*"]`);
     // TODO: make this flexible
     // url.searchParams.append("datums", "[\"2019-04-01\",\"2019-05-30\"]");
 
