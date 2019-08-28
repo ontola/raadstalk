@@ -2,7 +2,7 @@
 
 A webapplication that uses [Open Raadsinformatie](http://openraadsinformatie.nl) to show which topics are being discussed in Dutch municipalities.
 
-Check it out at [raadstalk.nl](http://raadstalk.nl)!
+Check it out at [VNG Realisatie](https://www.vngrealisatie.nl/producten/raadstalk) or at [raadstalk.nl](http://raadstalk.nl)!
 
 ## Use as widget
 
