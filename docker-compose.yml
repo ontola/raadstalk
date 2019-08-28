@@ -1,4 +1,4 @@
-version: '3.3'
+version: '3.5'
 services:
 
   nginx:
@@ -54,14 +54,12 @@ services:
   phpredisadmin:
     image: erikdubbelboer/phpredisadmin:latest
     environment:
-      - ADMIN_USER=admin
-      - ADMIN_PASS=oritrends
       - REDIS_1_HOST=redis
       - REDIS_1_PORT=6379
     depends_on:
       - redis
-    # ports:
-    #   - '8888:80'
+    env_file:
+      - secret.env
 
   certbot:
     image: certbot/certbot

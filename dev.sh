@@ -1,1 +1,1 @@
-docker-compose -f docker-compose.dev.yml up --build nginx
+docker-compose -f docker-compose.dev.yml up --build --always-recreate-deps nginx

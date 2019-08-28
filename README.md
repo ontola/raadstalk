@@ -20,7 +20,7 @@ See [an example HTML file here](/example.html).
 
 ## Managing Topics
 
-- Visit `http://admin.raadstalk` and login using your credentials.
+- Visit `http://admin.raadstalk` and login using your credentials. It is set with the `secret.env` file.
 - Manage months and their items by adjusting `raadstalk.YYYY-MM`. You can remove items from the lists.
 - Create backups by exporting the redis data.
 - If something goes wrong, you can import the `.redisbackup` from this repository.
@@ -65,6 +65,8 @@ The front-end uses a simple express proxy server for local development (`setupPr
 
 [![Build Status](https://semaphoreci.com/api/v1/projects/785f9851-b346-4ee3-b58c-5a4533498135/2531437/badge.svg)](https://semaphoreci.com/argu/raadstalk)
 
+- Clone the repo to the server.
+- Clone the secret template file `cp secret_templace.env secret.env` and **change the password**.
 - For HTTPS, use `./init-letsencrypt.sh`. You might need to run a seperate NGINX instance. Check [this tutorial](https://medium.com/@pentacent/nginx-and-lets-encrypt-with-docker-in-less-than-5-minutes-b4b8a60d3a71). Make sure
 - Semaphore automatically builds after each new commit on master.
 - SSH into the server `ssh root@raadstalk.nl`.
