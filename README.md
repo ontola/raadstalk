@@ -1,4 +1,5 @@
 # RaadsTalk
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 A webapplication that uses [Open Raadsinformatie](https://openraadsinformatie.nl) to show which topics are being discussed in Dutch municipalities.
 
