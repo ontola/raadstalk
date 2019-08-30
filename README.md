@@ -1,7 +1,7 @@
 # RaadsTalk
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-A webapplication that uses [Open Raadsinformatie](https://openraadsinformatie.nl) to show which topics are being discussed in Dutch municipalities.
+A webapplication that uses [Open Raadsinformatie](https://openraadsinformatie.nl) to show which topics are being discussed in Dutch municipalities. Uses the [WeighWords library](https://github.com/aolieman/weighwords/) / Parsimonius algorithm to calculate which words are trending.
 
 Check it out at [VNG Realisatie](https://www.vngrealisatie.nl/producten/raadstalk) or at [raadstalk.nl](https://raadstalk.nl)!
 
