@@ -10,3 +10,8 @@ Using docker:
 ```
 docker-compose up trends
 ```
+
+## Configuration
+
+The configuration is defined in the top of `ori-trends.py`. Most settings can be
+changed by setting the environment.

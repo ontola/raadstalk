@@ -1,2 +1,6 @@
 /data
 secret.env
+node_modules
+.idea
+trends/*-dumps
+src
