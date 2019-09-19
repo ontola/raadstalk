@@ -3,7 +3,7 @@ import re
 from datetime import datetime
 from glob import glob
 from string import punctuation
-from itertools import zip_longest
+from itertools import zip_longest, chain
 import math
 
 import certifi
@@ -85,7 +85,7 @@ def es_search_month():
     today = datetime.today()
 
     # Change this value to adjust how many months back should be processed
-    months = 24
+    months = 8
 
     end_date = datetime(today.year, today.month - 1, 1)
     current_date = end_date
@@ -121,7 +121,7 @@ def es_search_month():
                 value = value.replace('\n', ' ').replace('\r', ' ')
 
                 if len(value) > 400:
-                    dump_file.write(' '.join(clean_corpus(value)) + '\n')
+                    dump_file.write('%s %s\n' % (hit['_index'], ' '.join(clean_corpus(value))))
 
         dump_file.close()
 
@@ -182,33 +182,48 @@ def grouper(iterable, n, filler=None):
     return zip_longest(*args, fillvalue=filler)
 
 
-def weighwords(amount=20):
-    print('Processing parsimonious weighwords algorithm')
+def iter_file_lines(file_path):
+    with open(file_path, 'r') as f:
+        for line in f.readlines():
+            if not line:
+                continue
+            terms = line.split(' ')
+            yield terms[0], terms[1:]
 
-    def iter_dump(file_path):
-        with open(file_path, 'r') as f:
-            all_lines = f.read()
 
-            if not all_lines:
-                return None
+def files_combined_terms(path):
+    file_paths = sorted(glob(path))
+    for file_path in file_paths:
+        name = file_path.split('/')[1].split('.')[0]
+        # itertools.chain(*[terms for _, terms in iter_file_lines(file_path)])
+        yield name, list(chain(*[terms for _, terms in iter_file_lines(file_path)]))
 
-            return all_lines.replace('\n', ' ').split(' ')
 
-    def read_files():
-        file_paths = sorted(glob('*-dumps/*.dump'))
-        for file_path in file_paths:
-            date = file_path.split('/')[1].split('.')[0]
-            dump_data = iter_dump(file_path)
-            if dump_data:
-                yield date, dump_data
+def term_occurs(term, path, min_occurs):
+    files_terms = [(index, data) for index, data in iter_file_lines(path)]
+    index_count = dict()
+    index_total = set()
+    for index, terms in files_terms:
+        index_total.add(index)
+        if term in ' '.join(terms):
+            try:
+                index_count[index] += 1
+            except KeyError:
+                index_count[index] = 1
+    return (len([count for count in index_count.values() if count >= min_occurs]) * 1.00) / len(index_total)
 
-    model = ParsimoniousLM([data for _, data in read_files()], w=.01)
-    swlm = SignificantWordsLM([data for _, data in read_files()], lambdas=(.9, .01, .09))
+
+def weighwords(path, amount=30):
+    print('Processing parsimonious weighwords for %s' % path)
+
+    files_terms = [data for _, data in files_combined_terms(path)]
+    model = ParsimoniousLM(files_terms, w=.01)
+    swlm = SignificantWordsLM(files_terms, lambdas=(.9, .01, .09))
 
     print()
     print()
 
-    for name, terms in read_files():
+    for name, terms in files_combined_terms(path):
         print("######  {}  ######".format(name))
         if not terms:
             print('<leeg>')
@@ -221,21 +236,25 @@ def weighwords(amount=20):
             fix_lambdas=True,
         )
 
-        # for term, p in top_terms:
-        #     print("{:<40}{:.4f}".format(term, np.exp(p)))
+        # Minimum of occurrences in other lines in same corpora
+        min_occurs = 1
+        occur_threshold = 0.19
 
-        # print()
-        #
-        # print('############')
-
-        # for term, p in swlm_top:
-        #     print("{:<40}{:.4f}".format(term, p))
-
+        print(f"{'=ParsimoniousLM (not used)':40} {'score':12} {'count':4}         {'=SignificantWordsLM':40} {'score':12} {'count'}")
         for (plm_t, plm_p), (swlm_t, swlm_p) in zip(top_terms, swlm_top):
-            print(f"{plm_t:<40} {np.exp(plm_p):<12.4f} {swlm_t:<40} {swlm_p:.4f}")
+            plm_c = term_occurs(plm_t, 'maand-dumps/%s.dump' % name, min_occurs)
+            swlm_c = term_occurs(swlm_t, 'maand-dumps/%s.dump' % name, min_occurs)
 
-        r.delete(name)
-        r.rpush('raadstalk.%s' % name, *[term for term, _ in top_terms])
+            if swlm_c < occur_threshold:
+                continue
+
+            print(f"{plm_t:<40} {np.exp(plm_p):<12.4f} {plm_c:<4.2}          {swlm_t:<40} {swlm_p:<12.4f} {swlm_c:<4.2}")
+
+        r.delete('raadstalk.%s' % name)
+        for term, _ in swlm_top:
+            if term_occurs(term, 'maand-dumps/%s.dump' % name, min_occurs) < occur_threshold:
+                continue
+            r.rpush('raadstalk.%s' % name, term)
         print()
         print()
 
@@ -243,7 +262,12 @@ def weighwords(amount=20):
 # Main
 if __name__ == '__main__':
     print('Start processing')
+
+    ### Municipality data currently not needed
+    ## es_search_municipality()
+    ## weighwords('gemeente-dumps/*.dump')
+
     es_search_month()
-    es_search_municipality()
-    weighwords()
+    weighwords('maand-dumps/*.dump')
+
     print('Done processing')
