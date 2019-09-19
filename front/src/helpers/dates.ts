@@ -18,11 +18,7 @@ export const startDate: YearMonth = {
 };
 
 export const endDate = (): YearMonth => {
-  // return getPreviousMonth();
-  return {
-    year: 2019,
-    month: 6,
-  };
+  return getPreviousMonth();
 };
 
 export const getPreviousMonth = () => {
