@@ -26,7 +26,13 @@ class WordCounter {
   }
 
   private getCount(word: string): Promise<number> {
-    return nodeFetch(esURL, { method: "POST", body: JSON.stringify(this.query(word)) })
+    return nodeFetch(esURL, {
+      method: "POST",
+      body: JSON.stringify(this.query(word)),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
       .then(response => response.json())
       .then(json => json.hits.total.value)
       .catch((e) => {
