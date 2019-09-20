@@ -1,4 +1,5 @@
 import os
+import shutil
 import re
 from datetime import datetime
 from glob import glob
@@ -72,6 +73,8 @@ print('Elasticsearch cluster:', es.info())
 r = Redis(
     host=REDIS_HOST,
     port=REDIS_PORT,
+    decode_responses=True,
+    charset="utf-8",
 )
 
 # Test for redis connection and show databases
@@ -80,7 +83,7 @@ print('Redis databases:', r.info('keyspace'))
 
 def recreate_dir(path):
     try:
-        os.rmdir(path)
+        shutil.rmtree(path, ignore_errors=True)
     except OSError:
         pass
 
@@ -119,6 +122,9 @@ def clean_doc(doc):
         if word[-4] == '.' or word[-3] == '.':
             continue
 
+        if word in r.lrange("raadstalk.stupid_words", 0, -1):
+            continue
+
         if not re.match(r"^[a-zA-Z0-9_\-'/.&\b]*$", word):
             continue
 
@@ -146,7 +152,7 @@ def es_search_month(path):
             "query": {
                 # "match_all": {}
                 "range": {
-                    "date_modified": {
+                    "last_discussed_at": {
                         "gte": current_date.strftime("%d/%m/%Y"),
                         "lte": last_date.strftime("%d/%m/%Y"),
                         "format": "dd/MM/yyyy"

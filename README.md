@@ -48,6 +48,10 @@ See [an example HTML file here](/example.html).
 - Download the latest version and restart docker-compose `./renew.sh`
 - Don't forget to periodically run trends `crontab ./cronjob`
 
+## Config
+
+- Blacklist words / words to ignore can be set in `raadstalk.stupid_words`
+
 ## Credits
 
 Funded by VNG Realisatie B.V.
