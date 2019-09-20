@@ -53,3 +53,7 @@ See [an example HTML file here](/example.html).
 Funded by VNG Realisatie B.V.
 
 Development by Joep Meindertsma ([@joepio](https://github.com/joepio)) & Jurrian Trom ([@jurrian](https://github.com/jurrian)) from [Ontola](https://ontola.io) / [Argu](https://argu.co) B.V.
+
+## License
+
+MIT
