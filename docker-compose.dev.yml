@@ -35,6 +35,13 @@ services:
       - redis
       - app
 
+  redis-overcommit:
+    build: https://github.com/bkuhl/redis-overcommit-on-host.git
+    restart: 'no'
+    privileged: true
+    volumes:
+      - /proc/sys/vm:/mnt/vm
+
   redis:
     image: "redis:alpine"
     volumes:
@@ -44,7 +51,9 @@ services:
       - /usr/local/etc/redis/redis.conf
     # Open port. Don't do this in production.
     ports:
-     - "6379:6379"
+      - "6379:6379"
+    depends_on:
+      - redis-overcommit
 
   trends:
     build: trends
