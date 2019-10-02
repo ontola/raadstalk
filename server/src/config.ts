@@ -14,3 +14,5 @@ export const port = process.env.APP_PORT || 8080;
 export const redisHost = process.env.REDIS_HOST || "redis";
 export const redisPort = Number(process.env.REDIS_PORT) || 6379;
 export const staticDir = process.env.WWW_DIR || "/usr/src/app/www/";
+export const startYear = Number(process.env.START_YEAR || 2018);
+export const startMonth = Number(process.env.START_MONTH || 1);

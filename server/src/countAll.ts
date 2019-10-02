@@ -1,17 +1,17 @@
 import { setHitCounts } from "./words";
 import { YearMonth } from "../../types";
 import { getPreviousMonth } from "./countLastMonth";
+import { startYear, startMonth } from "./config";
 
 // Should start the getCounts process for all months up until the last one.
 
-const startYear = 2017;
-const startMonth = 0;
 const endDate = getPreviousMonth();
 
 const datesArray: YearMonth[] = [];
 const date = new Date();
 date.setFullYear(startYear);
-date.setMonth(startMonth);
+// JS starts with 0
+date.setMonth(startMonth - 1);
 
 while (JSON.stringify(datesArray[datesArray.length - 1]) !== JSON.stringify(endDate)) {
   console.log(datesArray[datesArray.length - 1], endDate);

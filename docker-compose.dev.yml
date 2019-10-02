@@ -27,6 +27,8 @@ services:
     depends_on:
       - redis
       - app
+    env_file:
+      - 'variables.env'
 
   countlastmonth:
     build: .
@@ -34,6 +36,8 @@ services:
     depends_on:
       - redis
       - app
+    env_file:
+      - 'variables.env'
 
   redis-overcommit:
     build: https://github.com/bkuhl/redis-overcommit-on-host.git
@@ -63,6 +67,8 @@ services:
       - ES_HOST=34.90.191.24
       - ES_PORT=9200
       - ES_PATH=
+    env_file:
+      - 'variables.env'
 
   phpredisadmin:
     image: erikdubbelboer/phpredisadmin:latest

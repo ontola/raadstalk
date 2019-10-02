@@ -46,6 +46,7 @@ See [an example HTML file here](/example.html).
 - Clone the secret template file `cp secret_templace.env secret.env` and **change the password**.
 - For HTTPS, use `./init-letsencrypt.sh`. Check [this tutorial](https://medium.com/@pentacent/nginx-and-lets-encrypt-with-docker-in-less-than-5-minutes-b4b8a60d3a71) for more information.
 - `cd raadstalk`
+- Adjust `variables.env` to set start date.
 - Download the latest version and restart docker-compose `./renew.sh`
 - Don't forget to periodically run trends `crontab ./cronjob`
 
