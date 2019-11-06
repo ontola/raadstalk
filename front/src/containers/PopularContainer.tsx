@@ -48,6 +48,13 @@ const PopularContainer: React.SFC<any> = (props) => {
   const isLastMonth = JSON.stringify(date) === JSON.stringify(endDate);
   const showDate = true;
 
+  try {
+     if (items[0].label.startsWith("No words") && (!isFirstMonth)) {
+      downDate()
+     }
+  } catch {
+  }
+
   return (
     <React.Fragment>
       {showDate &&

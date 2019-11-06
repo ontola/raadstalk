@@ -36,6 +36,7 @@ See [an example HTML file here](/example.html).
 
 ## Tasks
 
+- First add the `stupid_words` blacklist using redis admin. Use a backup.
 - `docker-compose up --build trends` for running trends task to update the words
 - `docker-compose up --build countall` for updating trends task to update all counts
 - `docker-compose up --build countlastmonth` for updating trends task to update last months counts
