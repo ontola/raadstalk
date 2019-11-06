@@ -12,16 +12,7 @@ export const subtractMonth = (date: YearMonth): YearMonth => {
   return dateToYearMonth(DATE);
 };
 
-export const startDate: YearMonth = {
-  year: 2018,
-  month: 1,
-};
-
-export const endDate = (): YearMonth => {
-  return getPreviousMonth();
-};
-
-export const getPreviousMonth = () => {
+export const getPreviousMonth = (): YearMonth => {
   const now = new Date();
   now.setDate(1);
   now.setMonth(now.getMonth() - 1);
@@ -32,12 +23,20 @@ export const getPreviousMonth = () => {
   };
 };
 
+export const endDate: YearMonth =  getPreviousMonth()
+
 export const yearMonthToDate = (yearMonth: YearMonth): Date => {
   const date = new Date();
   date.setDate(1);
   date.setMonth(yearMonth.month - 1);
   date.setFullYear(yearMonth.year);
   return date;
+};
+
+
+export const startDate: YearMonth = {
+  year: 2018,
+  month: 1,
 };
 
 export const dateToYearMonth = (date: Date): YearMonth => {
