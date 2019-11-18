@@ -90,13 +90,20 @@ def recreate_dir(path):
     os.mkdir(path)
 
 
+stupid_words = r.lrange("raadstalk.stupid_words", 0, -1)
+
+spaces_regex = re.compile(r'[\s"]+')
+valid_word_regex = re.compile(r"^[a-zA-Z0-9_\-'/.&\b]*$")
+
+
 def clean_doc(doc):
     new_doc = list()
 
-    doc = re.sub(r'\s+', ' ', doc).replace('(', '').replace(')', '').replace('"', ' ')
+    doc = spaces_regex.sub(' ', doc).replace('(', '').replace(')', '')
 
     for word in doc.split(' '):
-        if len(word) < WORD_CHARS_MIN or len(word) > WORD_CHARS_MAX:
+        word_length = len(word)
+        if word_length < WORD_CHARS_MIN or word_length > WORD_CHARS_MAX:
             continue
 
         if word[0].isdigit():
@@ -122,10 +129,10 @@ def clean_doc(doc):
         if word[-4] == '.' or word[-3] == '.':
             continue
 
-        if word in r.lrange("raadstalk.stupid_words", 0, -1):
+        if word in stupid_words:
             continue
 
-        if not re.match(r"^[a-zA-Z0-9_\-'/.&\b]*$", word):
+        if not valid_word_regex.match(word):
             continue
 
         new_doc.append(word)
@@ -161,7 +168,7 @@ def es_search_month(path):
             }
         }
 
-        hits = scan(es, index=INDICES_ES, query=query)
+        hits = scan(es, index=INDICES_ES, query=query, scroll='20m')
         for hit in hits:
             for field, value in hit['_source'].items():
                 if field not in TEXT_FIELDS_ES:
@@ -176,6 +183,7 @@ def es_search_month(path):
                     dump_file.write('%s %s\n' % (hit['_index'], ' '.join(clean_doc(value))))
 
         dump_file.close()
+        print('Fetched items for {}'.format(current_date))
 
         current_date = current_date - relativedelta(months=1)
 
@@ -202,7 +210,7 @@ def es_search_municipality(path):
             }
         }
 
-        hits = scan(es, index=index, query=query)
+        hits = scan(es, index=index, query=query, scroll='20m')
 
         if not hits:
             continue
