@@ -23,7 +23,7 @@ export const getPreviousMonth = (): YearMonth => {
   };
 };
 
-export const endDate: YearMonth =  getPreviousMonth()
+export const endDate: YearMonth = getPreviousMonth();
 
 export const yearMonthToDate = (yearMonth: YearMonth): Date => {
   const date = new Date();
@@ -32,7 +32,6 @@ export const yearMonthToDate = (yearMonth: YearMonth): Date => {
   date.setFullYear(yearMonth.year);
   return date;
 };
-
 
 export const startDate: YearMonth = {
   year: 2018,

@@ -49,9 +49,9 @@ const PopularContainer: React.SFC<any> = (props) => {
   const showDate = true;
 
   try {
-     if (items[0].label.startsWith("No words") && (isLastMonth)) {
-      downDate()
-     }
+    if (items[0].label.startsWith("No words") && (isLastMonth)) {
+      downDate();
+    }
   } catch {
   }
 
