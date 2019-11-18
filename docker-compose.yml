@@ -65,6 +65,8 @@ services:
       - redis
     env_file:
       - 'variables.env'
+    volumes:
+      - trends-data:/opt/trends/es_dumps
 
   phpredisadmin:
     image: erikdubbelboer/phpredisadmin:latest
@@ -85,3 +87,4 @@ services:
 
 volumes:
   redis-data:
+  trends-data:
