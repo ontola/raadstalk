@@ -17,6 +17,12 @@ from unidecode import unidecode
 from weighwords import ParsimoniousLM, SignificantWordsLM
 
 
+def type_or_none(type, value):
+    if not value:
+        return None
+    return type(value)
+
+
 ### CONFIGURATION ###
 
 # Fields in Elasticsearch that should contain text for a doc
@@ -26,25 +32,26 @@ TEXT_FIELDS_ES = ['text']
 INDICES_ES = os.environ.get('INDICES_ES', 'ori_*')
 
 # Minimum characters for a doc to be included in the corpus
-DOC_CHARS_MIN = os.environ.get('DOC_CHARS_MIN', 400)
+DOC_CHARS_MIN = type_or_none(int, os.environ.get('DOC_CHARS_MIN', 400))
 
 # Minimal amount of occurrences of a term within the municipality (doc) within
 # the same corpus (month)
-INDEX_TERM_OCCUR_MIN = os.environ.get('INDEX_TERM_OCCUR_MIN', 1)
+INDEX_TERM_OCCUR_MIN = type_or_none(int, os.environ.get('INDEX_TERM_OCCUR_MIN', 1))
 
 # Minimal percentage occurrences of a term in other municipalities (docs)
 # within the same corpus (month)
-OCCURS_THRESHOLD = os.environ.get('OCCURS_THRESHOLD', 0.09)
+OCCURS_THRESHOLD = type_or_none(float, os.environ.get('OCCURS_THRESHOLD', 0.09))
 
-# How many months of corpera should be extracted from elastic
-CORPUS_MONTHS = os.environ.get('CORPUS_MONTHS', 8)
+# How far ago should be fetched from elastic
+START_YEAR = type_or_none(int, os.environ.get('START_YEAR'))
+START_MONTH = type_or_none(int, os.environ.get('START_MONTH'))
 
 # Minimum and maximum word lenghts when cleaning doc
-WORD_CHARS_MIN = os.environ.get('WORD_CHARS_MIN', 5)
-WORD_CHARS_MAX = os.environ.get('WORD_CHARS_MAX', 30)
+WORD_CHARS_MIN = type_or_none(int, os.environ.get('WORD_CHARS_MIN', 5))
+WORD_CHARS_MAX = type_or_none(int, os.environ.get('WORD_CHARS_MAX', 30))
 
 # Number of results the model should return before
-MODEL_RESULT_AMOUNT = os.environ.get('MODEL_RESULT_AMOUNT', 30)
+MODEL_RESULT_AMOUNT = type_or_none(int, os.environ.get('MODEL_RESULT_AMOUNT', 30))
 
 # Model specific settings, see their documentation
 PLM_W = .01
@@ -80,14 +87,22 @@ r = Redis(
 # Test for redis connection and show databases
 print('Redis databases:', r.info('keyspace'))
 
+if START_YEAR and START_MONTH:
+    print('Settings START_MONTH: {}  START_YEAR: {}'.format(START_MONTH, START_YEAR))
+else:
+    print('No START_MONTH and START_YEAR set, processing last month only')
+
 
 def recreate_dir(path):
+    if os.path.isdir(path):
+        return
+
     try:
         shutil.rmtree(path, ignore_errors=True)
     except OSError:
         pass
 
-    os.mkdir(path)
+    os.makedirs(path)
 
 
 stupid_words = r.lrange("raadstalk.stupid_words", 0, -1)
@@ -146,10 +161,15 @@ def es_search_month(path):
     recreate_dir(path)
 
     today = datetime.today()
-    end_date = datetime(today.year, today.month - 1, 1)
-    current_date = end_date
 
-    while current_date > end_date - relativedelta(months=CORPUS_MONTHS):
+    # Start with last month
+    current_date = datetime(today.year, today.month - 1, 1)
+    if START_YEAR and START_MONTH:
+        start_date = datetime(START_YEAR, START_MONTH, 1)
+    else:
+        start_date = datetime(today.year, today.month - 2, 1)
+
+    while current_date > start_date:
         dump_file = open('{}/{}-{:02d}.dump'.format(path, current_date.year, current_date.month), 'w')
 
         last_date = current_date + relativedelta(months=1)
@@ -168,6 +188,7 @@ def es_search_month(path):
             }
         }
 
+        print('Fetching items for {}'.format(current_date))
         hits = scan(es, index=INDICES_ES, query=query, scroll='20m')
         for hit in hits:
             for field, value in hit['_source'].items():
@@ -183,7 +204,6 @@ def es_search_month(path):
                     dump_file.write('%s %s\n' % (hit['_index'], ' '.join(clean_doc(value))))
 
         dump_file.close()
-        print('Fetched items for {}'.format(current_date))
 
         current_date = current_date - relativedelta(months=1)
 
@@ -251,7 +271,8 @@ def iter_file_lines(file_path):
 def files_combined_terms(path):
     file_paths = sorted(glob(os.path.join(path, '*')))
     for file_path in file_paths:
-        name = file_path.split('/')[1].split('.')[0]
+        name = os.path.splitext(os.path.basename(file_path))[0]
+
         # itertools.chain(*[terms for _, terms in iter_file_lines(file_path)])
         yield name, list(chain(*[terms for _, terms in iter_file_lines(file_path)]))
 
@@ -280,6 +301,13 @@ def weighwords(path):
     print()
     print()
 
+    if START_YEAR and START_MONTH:
+        start_year = START_YEAR
+        start_month = START_MONTH
+    else:
+        start_year = datetime.today().year
+        start_month = datetime.today().month - 1
+
     for name, terms in files_combined_terms(path):
         print("######  {}  ######".format(name))
         if not terms:
@@ -303,24 +331,35 @@ def weighwords(path):
 
             print(f"{plm_t:<40} {np.exp(plm_p):<12.4f} {plm_c:<4.2}          {swlm_t:<40} {swlm_p:<12.4f} {swlm_c:<4.2}")
 
+        print()
+        print()
+
+        year = int(name[0:4])
+        month = int(name[5:7])
+
+        if year < start_year:
+            continue
+
+        if year == start_year and month < start_month:
+            continue
+
+        print('Saving to redis: raadstalk.%s' % name)
+        print()
+
         r.delete('raadstalk.%s' % name)
         for term, _ in swlm_top:
             if term_occurs(term, '%s/%s.dump' % (path, name)) < OCCURS_THRESHOLD:
                 continue
             r.rpush('raadstalk.%s' % name, term)
-        print()
-        print()
 
 
 # Main
 if __name__ == '__main__':
-    print('Start processing')
-
     ### Municipality data currently not needed
-    ## es_search_municipality('municipality-dumps')
-    ## weighwords('municipality-dumps')
+    ## es_search_municipality('es_dumps/municipality-dumps')
+    ## weighwords('es_dumps/municipality-dumps')
 
-    path = 'maand-dumps'
+    path = 'es_dumps/maand_dumps'
     es_search_month(path)
     weighwords(path)
 

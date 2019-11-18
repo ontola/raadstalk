@@ -2,5 +2,5 @@
 secret.env
 node_modules
 .idea
-trends/*-dumps
-src
+trends/*_dumps
+srcd
