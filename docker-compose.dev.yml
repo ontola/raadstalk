@@ -72,6 +72,8 @@ services:
 
   phpredisadmin:
     image: erikdubbelboer/phpredisadmin:latest
+    ports:
+      - 8888:80
     environment:
       - REDIS_1_HOST=redis
       - REDIS_1_PORT=6379
