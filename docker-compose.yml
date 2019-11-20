@@ -53,9 +53,6 @@ services:
     image: "redis:alpine"
     volumes:
       - redis-data:/data
-      - ./redis.conf:/usr/local/etc/redis/redis.conf
-    command:
-      - /usr/local/etc/redis/redis.conf
     depends_on:
       - redis-overcommit
 
