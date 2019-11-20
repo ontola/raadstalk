@@ -42,6 +42,13 @@ INDEX_TERM_OCCUR_MIN = type_or_none(int, os.environ.get('INDEX_TERM_OCCUR_MIN', 
 # within the same corpus (month)
 OCCURS_THRESHOLD = type_or_none(float, os.environ.get('OCCURS_THRESHOLD', 0.09))
 
+# How many months of corpera should be used for the models
+CORPUS_MONTHS = type_or_none(int, os.environ.get('CORPUS_MONTHS', 8))
+
+# Removes the nth word form the terms list in order make the corpus smaller and
+# reduce RAM. Setting to 2 will take half of the words. Should not be smaller than 2
+REMOVE_NTH_FROM_TERMS = type_or_none(int, os.environ.get('REMOVE_NTH_FROM_TERMS', 2))
+
 # How far ago should be fetched from elastic
 START_YEAR = type_or_none(int, os.environ.get('START_YEAR'))
 START_MONTH = type_or_none(int, os.environ.get('START_MONTH'))
@@ -88,9 +95,9 @@ r = Redis(
 print('Redis databases:', r.info('keyspace'))
 
 if START_YEAR and START_MONTH:
-    print('Settings START_MONTH: {}  START_YEAR: {}'.format(START_MONTH, START_YEAR))
+    print('Settings START_MONTH: {}  START_YEAR: {}  CORPUS_MONTHS: {}'.format(START_MONTH, START_YEAR, CORPUS_MONTHS))
 else:
-    print('No START_MONTH and START_YEAR set, processing last month only')
+    print('No START_MONTH and START_YEAR set, processing last month only. CORPUS_MONTHS: {}'.format(CORPUS_MONTHS))
 
 
 def recreate_dir(path):
@@ -269,12 +276,17 @@ def iter_file_lines(file_path):
 
 
 def files_combined_terms(path):
-    file_paths = sorted(glob(os.path.join(path, '*')))
+    file_paths = sorted(glob(os.path.join(path, '*')), reverse=True)[:CORPUS_MONTHS]
     for file_path in file_paths:
         name = os.path.splitext(os.path.basename(file_path))[0]
 
-        # itertools.chain(*[terms for _, terms in iter_file_lines(file_path)])
-        yield name, list(chain(*[terms for _, terms in iter_file_lines(file_path)]))
+        terms = list(chain(*[terms for _, terms in iter_file_lines(file_path)]))
+
+        # Delete the nth terms from the list to reduce RAM
+        if REMOVE_NTH_FROM_TERMS > 1:
+            del terms[REMOVE_NTH_FROM_TERMS-1::REMOVE_NTH_FROM_TERMS]
+
+        yield name, terms
 
 
 def term_occurs(term, path):
