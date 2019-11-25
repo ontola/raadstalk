@@ -43,6 +43,7 @@ class WordCounter {
 
   private query(word: string) {
     return {
+      track_total_hits: true,
       query: {
         simple_query_string: {
           query: word,
