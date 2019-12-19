@@ -28,7 +28,10 @@ See [an example HTML file here](/example.html).
 
 ## Local development
 
-- Setup the environment variables `cd server && mv template.env .env`
+- Setup the secret `cp secret_template.env secret.env`
+- Change the password `vim secret.env`
+- Setup the environment variables `cd server && cp template.env .env`
+- Make sure docker is running and docker-compose is installed
 - `./dev.sh`
 - Visit `http://localhost`
 - Redis admin is available at `http://localhost:8888` or `http://admin.localhost`
