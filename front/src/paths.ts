@@ -6,7 +6,7 @@ const paths = {
   map: (query: string) => `/widget/map/${query}`,
   /** Open OpenRaadsInformatie and search for a specific term */
   ORISearch: (query: string = "", gemeente: string) => {
-    const url = new URL("http://ori.argu.co/");
+    const url = new URL("http://zoek.openraadsinformatie.nl/");
     url.searchParams.append("zoekterm", `"${query}"`);
 
     const transformedString = gemeente.toLowerCase().split(" ").join("_");
