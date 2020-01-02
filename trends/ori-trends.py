@@ -80,6 +80,8 @@ es = Elasticsearch(
     port=ES_PORT,
     use_ssl=True if ES_PORT == '443' else False,
     ca_certs=certifi.where(),
+    timeout=60,
+    retry_on_timeout=True,
 )
 
 print('Elasticsearch cluster:', es.info())
@@ -206,7 +208,7 @@ def es_search_month(path):
         }
 
         print('Fetching items for {}'.format(current_date))
-        hits = scan(es, index=INDICES_ES, query=query, scroll='20m')
+        hits = scan(es, index=INDICES_ES, query=query, scroll='20m', request_timeout=60)
         for hit in hits:
             for field, value in hit['_source'].items():
                 if field not in TEXT_FIELDS_ES:
@@ -247,7 +249,7 @@ def es_search_municipality(path):
             }
         }
 
-        hits = scan(es, index=index, query=query, scroll='20m')
+        hits = scan(es, index=index, query=query, scroll='20m', request_timeout=60)
 
         if not hits:
             continue
