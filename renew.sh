@@ -1,3 +1,3 @@
 git pull
 docker-compose build
-docker-compose up nginx
+docker-compose up -d nginx
