@@ -94,7 +94,7 @@ r = Redis(
 # Test for redis connection and show databases
 print('Redis databases:', r.info('keyspace'))
 
-if START_YEAR and START_MONTH:
+if START_YEAR is not None and START_MONTH is not None:
     print('Settings START_MONTH: {}  START_YEAR: {}  CORPUS_MONTHS: {}'.format(START_MONTH, START_YEAR, CORPUS_MONTHS))
 else:
     print('No START_MONTH and START_YEAR set, processing last month only. CORPUS_MONTHS: {}'.format(CORPUS_MONTHS))
@@ -170,11 +170,11 @@ def es_search_month(path):
     today = datetime.today()
 
     # Start with last month
-    current_date = datetime(today.year, today.month - 1, 1)
-    if START_YEAR and START_MONTH:
-        start_date = datetime(START_YEAR, START_MONTH, 1)
+    current_date = datetime(today.year, today.month, 1) - relativedelta(months=1)
+    if START_YEAR is not None and START_MONTH is not None:
+        start_date = datetime(START_YEAR, START_MONTH + 1, 1)
     else:
-        start_date = datetime(today.year, today.month - 2, 1)
+        start_date = datetime(today.year, today.month, 1) - relativedelta(months=2)
 
     while current_date > start_date:
         dump_file = open('{}/{}-{:02d}.dump'.format(path, current_date.year, current_date.month), 'w')
@@ -315,10 +315,12 @@ def weighwords(path):
 
     if START_YEAR and START_MONTH:
         start_year = START_YEAR
-        start_month = START_MONTH
+        start_month = START_MONTH + 1
     else:
-        start_year = datetime.today().year
-        start_month = datetime.today().month - 1
+        today = datetime.today()
+        previous_month = datetime(today.year, today.month, 1) - relativedelta(months=1)
+        start_year = previous_month.year
+        start_month = previous_month.month
 
     for name, terms in files_combined_terms(path):
         print("######  {}  ######".format(name))
