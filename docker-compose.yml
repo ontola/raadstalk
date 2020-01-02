@@ -1,4 +1,4 @@
-version: '3.5'
+version: '2.4'
 services:
 
   nginx:
@@ -64,6 +64,9 @@ services:
       - 'variables.env'
     volumes:
       - trends-data:/opt/trends/es_dumps
+    cpus: 1.5
+    mem_limit: 3G
+    oom_kill_disable: true
 
   phpredisadmin:
     image: erikdubbelboer/phpredisadmin:latest
