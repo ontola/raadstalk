@@ -45,9 +45,9 @@ OCCURS_THRESHOLD = type_or_none(float, os.environ.get('OCCURS_THRESHOLD', 0.09))
 # How many months of corpera should be used for the models
 CORPUS_MONTHS = type_or_none(int, os.environ.get('CORPUS_MONTHS', 8))
 
-# Removes the nth word form the terms list in order make the corpus smaller and
-# reduce RAM. Setting to 2 will take half of the words. Should not be smaller than 2
-REMOVE_NTH_FROM_TERMS = type_or_none(int, os.environ.get('REMOVE_NTH_FROM_TERMS', 2))
+# Keeps the nth word form the terms list in order make the corpus smaller and
+# reduce RAM. Setting 1 is all, with 2 half, with 3 a third, and so on.
+NTH_FROM_TERMS = type_or_none(int, os.environ.get('NTH_FROM_TERMS', 2))
 
 # How far ago should be fetched from elastic
 START_YEAR = type_or_none(int, os.environ.get('START_YEAR'))
@@ -282,11 +282,9 @@ def files_combined_terms(path):
 
         terms = list(chain(*[terms for _, terms in iter_file_lines(file_path)]))
 
-        # Delete the nth terms from the list to reduce RAM
-        if REMOVE_NTH_FROM_TERMS > 1:
-            del terms[REMOVE_NTH_FROM_TERMS-1::REMOVE_NTH_FROM_TERMS]
-
-        yield name, terms
+        # Take only the nth terms from the list to reduce RAM
+        # Setting 1 is all, with 2 half, with 3 a third, and so on.
+        yield name, terms[::NTH_FROM_TERMS]
 
 
 def term_occurs(term, path):
