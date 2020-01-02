@@ -176,8 +176,18 @@ def es_search_month(path):
     else:
         start_date = datetime(today.year, today.month, 1) - relativedelta(months=2)
 
+    i = 0
     while current_date > start_date:
-        dump_file = open('{}/{}-{:02d}.dump'.format(path, current_date.year, current_date.month), 'w')
+        dump_file_name = '{}/{}-{:02d}.dump'.format(path, current_date.year, current_date.month)
+        i += 1
+
+        if i > CORPUS_MONTHS and os.path.exists(dump_file_name):
+            # Skip if the month has already been downloaded and is outside of the corpus
+            print('Skipping items for {}'.format(current_date))
+            current_date = current_date - relativedelta(months=1)
+            continue
+
+        dump_file = open(dump_file_name, 'w')
 
         last_date = current_date + relativedelta(months=1)
         last_date = datetime(last_date.year, last_date.month, 1) - relativedelta(days=1)
