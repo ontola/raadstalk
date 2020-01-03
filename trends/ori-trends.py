@@ -45,6 +45,9 @@ OCCURS_THRESHOLD = type_or_none(float, os.environ.get('OCCURS_THRESHOLD', 0.09))
 # How many months of corpera should be used for the models
 CORPUS_MONTHS = type_or_none(int, os.environ.get('CORPUS_MONTHS', 8))
 
+# Skip downloading months after x if already on disk, defaults to CORPUS_MONTHS
+SKIP_AFTER_MONTHS = type_or_none(int, os.environ.get('SKIP_AFTER_MONTHS'))
+
 # Keeps the nth word form the terms list in order make the corpus smaller and
 # reduce RAM. Setting 1 is all, with 2 half, with 3 a third, and so on.
 NTH_FROM_TERMS = type_or_none(int, os.environ.get('NTH_FROM_TERMS', 2))
@@ -97,9 +100,9 @@ r = Redis(
 print('Redis databases:', r.info('keyspace'))
 
 if START_YEAR is not None and START_MONTH is not None:
-    print('Settings START_MONTH: {}  START_YEAR: {}  CORPUS_MONTHS: {}'.format(START_MONTH, START_YEAR, CORPUS_MONTHS))
+    print('Settings START_MONTH: {}  START_YEAR: {}  CORPUS_MONTHS: {}  SKIP_AFTER_MONTHS: {}'.format(START_MONTH, START_YEAR, CORPUS_MONTHS, SKIP_AFTER_MONTHS))
 else:
-    print('No START_MONTH and START_YEAR set, processing last month only. CORPUS_MONTHS: {}'.format(CORPUS_MONTHS))
+    print('No START_MONTH and START_YEAR set, processing last month only. CORPUS_MONTHS: {}  SKIP_AFTER_MONTHS: {}'.format(CORPUS_MONTHS, SKIP_AFTER_MONTHS))
 
 
 def recreate_dir(path):
@@ -179,11 +182,11 @@ def es_search_month(path):
         start_date = datetime(today.year, today.month, 1) - relativedelta(months=2)
 
     i = 0
-    while current_date > start_date:
+    while current_date >= start_date:
         dump_file_name = '{}/{}-{:02d}.dump'.format(path, current_date.year, current_date.month)
         i += 1
 
-        if i > CORPUS_MONTHS and os.path.exists(dump_file_name):
+        if i > (SKIP_AFTER_MONTHS or CORPUS_MONTHS) and os.path.exists(dump_file_name):
             # Skip if the month has already been downloaded and is outside of the corpus
             print('Skipping items for {}'.format(current_date))
             current_date = current_date - relativedelta(months=1)
