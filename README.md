@@ -23,7 +23,7 @@ See [an example HTML file here](/example.html).
 
 - Visit [`admin.localhost`](http://admin.localhost) (or [`admin.raadstalk.nl`](https://admin.raadstalk.nl) in production) and login using your credentials. The password is set with the `secret.env` file.
 - Manage months and their items by adjusting `raadstalk.YYYY-MM`. You can remove items from the lists.
-- Blacklist words / words to ignore can be set by adding items to `raadstalk.stupid_words`
+- Blacklist words / words to ignore can be set by adding items to `raadstalk.stupid_words`. Be aware that the `/opt/trends/es_dump` folder within the container should be **flushed** when new words are added.
 - Create backups by exporting the redis data and pasting the content to a new .redis file in the `./backups` folder. You can import these using the same interface.
 
 ## Local development
