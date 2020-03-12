@@ -26,31 +26,33 @@ See [an example HTML file here](/example.html).
 - Blacklist words / words to ignore can be set by adding items to `raadstalk.stupid_words`. Be aware that the `/opt/trends/es_dump` folder within the container should be **flushed** when new words are added.
 - Create backups by exporting the redis data and pasting the content to a new .redis file in the `./backups` folder. You can import these using the same interface.
 
-## Local development
+## Setup
 
+- Get docker and docker-compose
 - Setup the secret `cp secret_template.env secret.env`
 - Change the password `vim secret.env`
-- Setup the environment variables `cd server && cp template.env .env`
-- Make sure docker is running and docker-compose is installed
+- Setup the environment variables in server folder `cd server && cp template.env .env`
+- Add  blacklisted words using redis admin `admin.localhost`. Import the `stupid_words.redis` file.
+
+## Local development
+
 - `./dev.sh`
 - Visit `http://localhost`
 - Redis admin is available at `http://localhost:8888` or `http://admin.localhost`
-- If you have VSCode, you can use the `Debug server` configuration for the back-end
+- If you use VSCode, you can use the `Debug server` build task
 
 ## Tasks
 
-- First add the `stupid_words` blacklist using redis admin. Use a backup.
+- `docker-compose up -d nginx` for running the server.
+- Adjust `variables.env` to set start date.
 - `docker-compose up --build trends` for running trends task to update the words
 - `docker-compose up --build countall` for updating trends task to update all counts
 - `docker-compose up --build countlastmonth` for updating trends task to update last months counts
 
 ## Deployment & devops
 
-- Clone the repo to the server.
-- Clone the secret template file `cp secret_templace.env secret.env` and **change the password**.
+- Follow steps from setup
 - For HTTPS, use `./init-letsencrypt.sh`. Check [this tutorial](https://medium.com/@pentacent/nginx-and-lets-encrypt-with-docker-in-less-than-5-minutes-b4b8a60d3a71) for more information.
-- `cd raadstalk`
-- Adjust `variables.env` to set start date.
 - Download the latest version and restart docker-compose `./renew.sh`
 - Don't forget to periodically run trends `crontab ./cronjob`
 
