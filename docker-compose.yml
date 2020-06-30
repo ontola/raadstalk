@@ -65,7 +65,7 @@ services:
     volumes:
       - trends-data:/opt/trends/es_dumps
     cpus: 1.5
-    mem_limit: 3G
+    mem_limit: 6G
     oom_kill_disable: true
 
   phpredisadmin:
